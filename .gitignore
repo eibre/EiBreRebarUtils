@@ -1,3 +1,12 @@
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
