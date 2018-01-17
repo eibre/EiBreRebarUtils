@@ -36,8 +36,8 @@ namespace EiBreRebarUtils
             {
                 rebarNumbers[p] = GetRebarNumbers(doc, p);
             }
-
-            using (FormRenumber form1 = new FormRenumber(doc, partitions.ToArray(), rebarNumbers))
+            string[] sortedPartitions = partitions.OrderBy(q => q).ToArray();
+            using (FormRenumber form1 = new FormRenumber(doc, sortedPartitions, rebarNumbers))
             {
                 form1.ShowDialog();
                 if (form1.DialogResult == System.Windows.Forms.DialogResult.Cancel) return Result.Cancelled;
