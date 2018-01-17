@@ -15,7 +15,7 @@ namespace EiBreRebarUtils
         public Result OnStartup(UIControlledApplication application)
         {
             // Registrere event:
-            application.ControlledApplication.FileExporting += new EventHandler<FileExportingEventArgs>(AskForParameterUpdates);
+            //application.ControlledApplication.FileExporting += new EventHandler<FileExportingEventArgs>(AskForParameterUpdates);
 
             // Add a new ribbon panel
             RibbonPanel ribbonPanel = application.CreateRibbonPanel("EiBre Rebar Utils");
