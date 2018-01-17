@@ -31,7 +31,13 @@ namespace EiBreRebarUtils
                 TaskDialog.Show("Warning", "No partitions in the document");
                 return Result.Cancelled;
             }
-            using (FormRenumber form1 = new FormRenumber(doc, partitions.ToArray()))
+            Dictionary<string, string[]> rebarNumbers = new Dictionary<string, string[]>(); 
+            foreach(string p in partitions)
+            {
+                rebarNumbers[p] = GetRebarNumbers(doc, p);
+            }
+
+            using (FormRenumber form1 = new FormRenumber(doc, partitions.ToArray(), rebarNumbers))
             {
                 form1.ShowDialog();
                 if (form1.DialogResult == System.Windows.Forms.DialogResult.Cancel) return Result.Cancelled;

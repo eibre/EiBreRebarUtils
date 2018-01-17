@@ -72,6 +72,7 @@
             this.comboPartition.Name = "comboPartition";
             this.comboPartition.Size = new System.Drawing.Size(121, 21);
             this.comboPartition.TabIndex = 3;
+            this.comboPartition.SelectedIndexChanged += new System.EventHandler(this.comboPartitions_SelectedIndexChanged);
             // 
             // comboRebarNumber
             // 

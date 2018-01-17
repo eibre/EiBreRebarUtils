@@ -14,17 +14,19 @@ namespace EiBreRebarUtils
     public partial class FormRenumber : System.Windows.Forms.Form
     {
         //constructor
-        public FormRenumber(Document doc,string[] partitions)
+        public FormRenumber(Document doc,string[] partitions, Dictionary<string, string[]> rebarNumbers)
         {
             InitializeComponent();
             this.doc = doc;
+            this.rebarNumbers = rebarNumbers;
             comboPartition.Items.AddRange(partitions);
             comboPartition.SelectedItem = 0;
-            comboRebarNumber.Items.AddRange(RenumberRebar.GetRebarNumbers(doc, partitions.First()));
+            comboRebarNumber.Items.AddRange(rebarNumbers[partitions.First()]);
         }
         
         //Properties:
         private Document doc { get; set; }
+        private Dictionary<string, string[]> rebarNumbers { get; set; }
         public string partition { get; set; }
         public int fromNumber { get; set; }
         public int toNumber { get; set; }
@@ -32,10 +34,14 @@ namespace EiBreRebarUtils
         //Events:
         private void comboPartitions_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboPartition.Text != string.Empty)
+            try 
             {
                 comboRebarNumber.Items.Clear();
-                comboRebarNumber.Items.AddRange(RenumberRebar.GetRebarNumbers(doc, comboPartition.Text));
+                comboRebarNumber.Items.AddRange(rebarNumbers[comboPartition.Text]);
+            }
+            catch (KeyNotFoundException)
+            {
+                comboRebarNumber.Items.Clear();
             }
         }
 
