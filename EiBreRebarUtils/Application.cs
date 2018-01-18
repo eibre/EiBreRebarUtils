@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reflection;
 using System.Collections.Generic;
+using System.Drawing;
 using Autodesk.Revit.DB.Events;
 using Autodesk.Revit.UI;
 using System.Windows.Media.Imaging;
@@ -28,27 +29,22 @@ namespace EiBreRebarUtils
                "Tag rebars \nin host", thisAssemblyPath, "EiBreRebarUtils.TagAllRebarsInHost");
             
             PushButton pushButton = ribbonPanel.AddItem(buttonData) as PushButton;
-
             pushButton.ToolTip = "Tag all rebars in a host, the bars must be visible in active view";
-            Uri uriImage = new Uri(Path.GetDirectoryName(thisAssemblyPath)+ @"\TagAllRebarsInHost.png");
-            BitmapImage largeImage = new BitmapImage(uriImage);
-            pushButton.LargeImage = largeImage;
+            pushButton.LargeImage = BitmapToImageSource(Properties.Resources.TagAllRebarsInHost);
+
 
             //Select tagged/untagged
-            //---------------------------------------
+            //--------------------------------------
             //Create pushbutton data to select all tagged rebars in a view
             PushButtonData pushSelectedTagData = new PushButtonData("cmdSelectTaggedRebar", "Select \ntagged rebars", thisAssemblyPath, "EiBreRebarUtils.SelectTaggedRebars");
             pushSelectedTagData.ToolTip = "Selects all tagged Rebar elements in view";
-            Uri uriImage1 = new Uri(Path.GetDirectoryName(thisAssemblyPath) + @"\selectTagged.png");
-            BitmapImage largeImage1 = new BitmapImage(uriImage1);
-            pushSelectedTagData.LargeImage = largeImage1;
+            pushSelectedTagData.LargeImage = BitmapToImageSource(Properties.Resources.selectTagged);
+
 
             //Create pushbutton data to select all tagged rebars in a view
             PushButtonData pushUnselectedTagData = new PushButtonData("cmdSelectUntaggedRebar", "Select un-\ntagged rebars", thisAssemblyPath, "EiBreRebarUtils.SelectUntaggedRebars");
             pushUnselectedTagData.ToolTip = "Selects all un-tagged Rebar elements in view";
-            Uri uriImage2 = new Uri(Path.GetDirectoryName(thisAssemblyPath) + @"\selectNotTagged.png");
-            BitmapImage largeImage2 = new BitmapImage(uriImage2);
-            pushUnselectedTagData.LargeImage = largeImage2;
+            pushUnselectedTagData.LargeImage = BitmapToImageSource(Properties.Resources.selectNotTagged);
 
             //Create splitbutton for tag selecting
             SplitButtonData sbData1 = new SplitButtonData("Tag Selection", "Split");
@@ -61,22 +57,15 @@ namespace EiBreRebarUtils
             //-----------------------------------------------------------
 
             PushButtonData pushDataRemoveDimVal = new PushButtonData("cmdRemoveDimensionValue", "Remove\ndim. value", thisAssemblyPath, "EiBreRebarUtils.RemoveDimensionValue");
-            //PushButton pushButton4 = ribbonPanel.AddItem(pushDataRemoveDimVal) as PushButton;
             pushDataRemoveDimVal.ToolTip = "Removes the dimension values from dimension lines.";
-            //Uri uriImageRemoveDimVal = new Uri(Path.GetDirectoryName(thisAssemblyPath) + @"\RemoveDimensionValue.png");
-            //BitmapImage largeImageRemoveDimVal = new BitmapImage(uriImageRemoveDimVal);
-            //pushDataRemoveDimVal.LargeImage = largeImageRemoveDimVal;
            
 
             // Create a push button to cycle tags
             //--------------------------------------------------------------
-            PushButtonData buttonData5 = new PushButtonData("cmdCycleTag",
-               "Cycle Tag\nLeader", thisAssemblyPath, "EiBreRebarUtils.CycleTagLeader");
+            PushButtonData buttonData5 = new PushButtonData("cmdCycleTag", "Cycle Tag\nLeader", thisAssemblyPath, "EiBreRebarUtils.CycleTagLeader");
             PushButton pushButton5 = ribbonPanel.AddItem(buttonData5) as PushButton;
             pushButton5.ToolTip = "Cycle between attached end, free end and no leader";
-            Uri uriImage5 = new Uri(Path.GetDirectoryName(thisAssemblyPath) + @"\CycleTagLeader.png");
-            BitmapImage largeImage5 = new BitmapImage(uriImage5);
-            pushButton5.LargeImage = largeImage5;
+            pushButton5.LargeImage = BitmapToImageSource(Properties.Resources.CycleTagLeader);
 
             //PULLDOWN to edit Rebar visibility
             //-----------------------------------------------------------------
@@ -94,30 +83,19 @@ namespace EiBreRebarUtils
 
             PulldownButtonData pullDataVisibility = new PulldownButtonData("cmdRebarVisibility", "Rebar Visibility");
             PulldownButton pullDownButtonVisibility = ribbonPanel.AddItem(pullDataVisibility) as PulldownButton;
-            Uri uriImageVisibility = new Uri(Path.GetDirectoryName(thisAssemblyPath) + @"\visibility.png");
-            BitmapImage largeImageVisibility = new BitmapImage(uriImageVisibility);
-            pullDownButtonVisibility.LargeImage = largeImageVisibility;
+
+            pullDownButtonVisibility.LargeImage = BitmapToImageSource(Properties.Resources.visibility);
             pullDownButtonVisibility.AddPushButton(pushData6);
             pullDownButtonVisibility.AddPushButton(pushData7);
             pullDownButtonVisibility.AddPushButton(pushData8);
             pullDownButtonVisibility.AddPushButton(pushData9);
-            //Create splitbutton
-            /*
-            SplitButtonData sbData2 = new SplitButtonData("Rebar Visibility", "Split");
-            SplitButton sb2 = ribbonPanel.AddItem(sbData2) as SplitButton;
-            sb2.AddPushButton(pushData6);
-            sb2.AddPushButton(pushData7);
-            sb2.AddPushButton(pushData8);
-            sb2.AddPushButton(pushData9);
-            */
+
 
             //PULLDOWNGROUP Selection Tools
             //-----------------------------------------------------------------
             PulldownButtonData pullDataSelect = new PulldownButtonData("cmdRebarSelect", "Selection Tools");
             PulldownButton pullDownButtonSelect = ribbonPanel.AddItem(pullDataSelect) as PulldownButton;
-            Uri uriImageSelect = new Uri(Path.GetDirectoryName(thisAssemblyPath) + @"\select.png");
-            BitmapImage largeImageSelect = new BitmapImage(uriImageSelect);
-            pullDownButtonSelect.LargeImage = largeImageSelect;
+            pullDownButtonSelect.LargeImage = BitmapToImageSource(Properties.Resources.select);
 
             PushButtonData pushData10 = new PushButtonData("cmdSelectRebar", "Rebar Filter", thisAssemblyPath, "EiBreRebarUtils.SelectRebar");
             pushData10.ToolTip = "Rebar Filter";
@@ -132,15 +110,9 @@ namespace EiBreRebarUtils
             pullDownButtonSelect.AddPushButton(pushData11);
             pullDownButtonSelect.AddPushButton(pushData12);
 
-
-            /* Small boutton group:
-            List<RibbonItem> projectButtons = new List<RibbonItem>();
-            projectButtons.AddRange(ribbonPanel.AddStackedItems(pushData10, pushData11, pushData12));
-            */
             //Pushbutton for rebar renumbering
             //----------------------------------------------------------------
             PushButtonData pushData13 = new PushButtonData("cmdRenumberRebar", "Renumber", thisAssemblyPath, "EiBreRebarUtils.RenumberRebar");
-            //PushButton pushButton13 = ribbonPanel.AddItem(pushData13) as PushButton;
             pushData13.ToolTip = "Change a Rebar Number";
 
             //Pushbutton Schedule Mark Update
@@ -164,11 +136,8 @@ namespace EiBreRebarUtils
             pullDownButtonOther.AddPushButton(pushDataScheduleMark);
             pullDownButtonOther.AddPushButton(pushDataSum);
             pullDownButtonOther.AddPushButton(pushDataCopyRebar);
-            Uri uriImageOther = new Uri(Path.GetDirectoryName(thisAssemblyPath) + @"\other.png");
-            BitmapImage largeImageOther = new BitmapImage(uriImageOther);
-            pullDownButtonOther.LargeImage = largeImageOther;
-
-
+            pullDownButtonOther.LargeImage = BitmapToImageSource(Properties.Resources.other);
+            
             return Result.Succeeded;
         }
 
@@ -192,5 +161,21 @@ namespace EiBreRebarUtils
             }
         }
 
+        //Credit for this method: https://stackoverflow.com/questions/22499407/how-to-display-a-bitmap-in-a-wpf-image
+        BitmapImage BitmapToImageSource(Bitmap bitmap)
+        {
+            using (MemoryStream memory = new MemoryStream())
+            {
+                bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Png);
+                memory.Position = 0;
+                BitmapImage bitmapimage = new BitmapImage();
+                bitmapimage.BeginInit();
+                bitmapimage.StreamSource = memory;
+                bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapimage.EndInit();
+
+                return bitmapimage;
+            }
+        }
     } //class
 } // namespace
