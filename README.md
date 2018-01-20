@@ -10,11 +10,13 @@ This addin creates a section in the Add-In ribbon:
 
 Most of the commands are made for faster detailing when tagging 3D-reinforcent. Some of the commands are more general, such as "Cycle Tag Leader", "Select Same Category", "Select Same Workset" and Sum of Geometry.
 
-Renumber Rebar lets you change the Rebar Number parameter, which is not supported by Revit in the user interface. Copy rebar works best for copying rebar between line based elements such as beams an walls
+Renumber Rebar lets you change the Rebar Number parameter, which is not supported by Revit in the user interface. Copy rebar works best for copying rebar between line based elements such as beams an walls.
 
 ## Installation
 
-Compile the code and copy [EibreRebarUtils.addin](Install/EibreRebarUtils.addin) and EibreRebarUtils.dll to
+Download and unzip [EiBreRebarUtils-Installl.zip](EiBreRebarUtils/Install/EiBreRebarUtils-Install.zip) and run Install.bat in the folder named after the Revit version it is made for.
+
+Or simply copy EibreRebarUtils.addin and EibreRebarUtils.dll to
 the [Revit Add-Ins folder](http://help.autodesk.com/view/RVT/2015/ENU/?guid=GUID-4FFDB03E-6936-417C-9772-8FC258A261F7).
 
 ## Author
