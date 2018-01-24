@@ -18,13 +18,11 @@ Download and unzip [EiBreRebarUtils-Installl.zip](Install/) and run Install.bat 
 
 Or simply copy EibreRebarUtils.addin and EibreRebarUtils.dll to
 the [Revit Add-Ins folder](http://help.autodesk.com/view/RVT/2018/ENU/?guid=Revit_API_Revit_API_Developers_Guide_Introduction_Add_In_Integration_Add_in_Registration_html).
-<<<<<<< HEAD
 
 You might need to unblock the zip file to make it work:
 
 ![Unblock](Unblock.jpg)
-=======
->>>>>>> origin/master
+
 
 ## Author
 
