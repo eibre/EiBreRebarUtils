@@ -17,7 +17,7 @@ Renumber Rebar lets you change the Rebar Number parameter, which is not supporte
 Download and unzip [EiBreRebarUtils-Installl.zip](Install/) and run Install.bat in the folder named after the Revit version it is made for.
 
 Or simply copy EibreRebarUtils.addin and EibreRebarUtils.dll to
-the [Revit Add-Ins folder](http://help.autodesk.com/view/RVT/2015/ENU/?guid=GUID-4FFDB03E-6936-417C-9772-8FC258A261F7).
+the [Revit Add-Ins folder](http://help.autodesk.com/view/RVT/2018/ENU/?guid=Revit_API_Revit_API_Developers_Guide_Introduction_Add_In_Integration_Add_in_Registration_html).
 
 ## Author
 
