@@ -116,6 +116,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Coordinates.cs" />
     <Compile Include="CopyRebar.cs" />
     <Compile Include="FormRenumber.cs">
       <SubType>Form</SubType>

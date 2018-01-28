@@ -127,6 +127,8 @@ namespace EiBreRebarUtils
             PushButtonData pushDataCopyRebar = new PushButtonData("cmdCopyRebar", "Copy Rebar", thisAssemblyPath, "EiBreRebarUtils.CopyRebar");
             pushDataCopyRebar.ToolTip = "Copies rebar from line based elements such as beams, walls, slanted columns to other line based elements.";
 
+            //Pushbutton Move from internal to shared
+            PushButtonData pushDataMoveInternalShared = new PushButtonData("cmdMoveFromInternalToShared", "Move from internal to shared", thisAssemblyPath, "EiBreRebarUtils.MoveFromInternalToShared");
 
             //PULLDOWN BUTTON OTHER
             PulldownButtonData pullDataOther = new PulldownButtonData("cmdOther", "Other tools");
@@ -136,6 +138,7 @@ namespace EiBreRebarUtils
             pullDownButtonOther.AddPushButton(pushDataScheduleMark);
             pullDownButtonOther.AddPushButton(pushDataSum);
             pullDownButtonOther.AddPushButton(pushDataCopyRebar);
+            pullDownButtonOther.AddPushButton(pushDataMoveInternalShared);
             pullDownButtonOther.LargeImage = BitmapToImageSource(Properties.Resources.other);
             
             return Result.Succeeded;
