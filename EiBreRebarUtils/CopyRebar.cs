@@ -26,12 +26,22 @@ namespace EiBreRebarUtils
             Document doc = uidoc.Document;
 
             bool SourceIsWallFoundation = false;
+            Reference ref1 = null;
+            IList<Reference> ref2List = new List<Reference>();
 
-            Reference ref1 = uidoc.Selection.PickObject(ObjectType.Element, new RebarHostSelectionFilter(), "Pick a rebar host to copy from");
-            IList<Reference> ref2List = uidoc.Selection.PickObjects(ObjectType.Element, new RebarHostSelectionFilter(), "Pick a rebar host to copy to");
 
 
-            
+            try
+            {
+                ref1 = uidoc.Selection.PickObject(ObjectType.Element, new RebarHostSelectionFilter(), "Pick a rebar host to copy from");
+                ref2List = uidoc.Selection.PickObjects(ObjectType.Element, new RebarHostSelectionFilter(), "Pick a rebar host to copy to");
+            }
+            catch(Autodesk.Revit.Exceptions.OperationCanceledException)
+            {
+                TaskDialog.Show("Rebar Copy command cancelled", "Click finish in top left corner to complete the command");
+                return Result.Cancelled;
+            }
+
             using (Transaction t1 = new Transaction(doc, "Copy rebar"))
             {
                 t1.Start();
