@@ -63,6 +63,16 @@ namespace EiBreRebarUtils.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap copyRebar {
+            get {
+                object obj = ResourceManager.GetObject("copyRebar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap CycleTagLeader {
             get {
                 object obj = ResourceManager.GetObject("CycleTagLeader", resourceCulture);
@@ -83,29 +93,19 @@ namespace EiBreRebarUtils.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap renumber {
+            get {
+                object obj = ResourceManager.GetObject("renumber", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap select {
             get {
                 object obj = ResourceManager.GetObject("select", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap selectNotTagged {
-            get {
-                object obj = ResourceManager.GetObject("selectNotTagged", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap selectTagged {
-            get {
-                object obj = ResourceManager.GetObject("selectTagged", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

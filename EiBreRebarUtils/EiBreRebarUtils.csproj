@@ -151,7 +151,9 @@
     <EmbeddedResource Include="Resources\TagAllRebarsInHost.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\CycleTagLeader.png" />
+    <EmbeddedResource Include="Resources\CycleTagLeader.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\other.png" />
@@ -160,13 +162,15 @@
     <EmbeddedResource Include="Resources\select.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\selectNotTagged.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\selectTagged.png" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Resources\visibility.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\renumber.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\copyRebar.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

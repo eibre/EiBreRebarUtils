@@ -127,16 +127,16 @@
   <data name="select" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\select.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="selectNotTagged" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\selectNotTagged.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="selectTagged" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\selectTagged.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="TagAllRebarsInHost" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TagAllRebarsInHost.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="visibility" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\visibility.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="copyRebar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\copyRebar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="renumber" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\renumber.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

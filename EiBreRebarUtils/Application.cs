@@ -20,45 +20,31 @@ namespace EiBreRebarUtils
 
             // Add a new ribbon panel
             RibbonPanel ribbonPanel = application.CreateRibbonPanel("EiBre Rebar Utils");
-            
-            // buttons: Tag all, select (un)tagged, cycle tag,  Visibility, Selection, Other
+            string thisAssemblyPath = Assembly.GetExecutingAssembly().Location;
+            // buttons: Copy Rebar, Renumber Rebar, Tag all, cycle tag,  Visibility, Selection, Other
+
+            //Pushbutton copy rebar
+            PushButtonData pushDataCopyRebar = new PushButtonData("cmdCopyRebar", "Copy Rebar", thisAssemblyPath, "EiBreRebarUtils.CopyRebar");
+            pushDataCopyRebar.ToolTip = "Copies rebar from line based elements such as beams, walls, slanted columns to other line based elements.";
+            PushButton pushButtonCopyRebar = ribbonPanel.AddItem(pushDataCopyRebar) as PushButton;
+            pushButtonCopyRebar.LargeImage = BitmapToImageSource(Properties.Resources.copyRebar);
+
+            //Pushbutton for rebar renumbering
+            //----------------------------------------------------------------
+            PushButtonData pushDataRenumber = new PushButtonData("cmdRenumberRebar", "Renumber", thisAssemblyPath, "EiBreRebarUtils.RenumberRebar");
+            pushDataRenumber.ToolTip = "Change a Rebar Number";
+            PushButton pushButtonRenumber = ribbonPanel.AddItem(pushDataRenumber) as PushButton;
+            pushButtonRenumber.LargeImage = BitmapToImageSource(Properties.Resources.renumber);
 
             // Create a push button to trigger the tag all rebars command.
-            string thisAssemblyPath = Assembly.GetExecutingAssembly().Location;
+
             PushButtonData buttonData = new PushButtonData("cmdTagAllRebarsInHost",
                "Tag rebars \nin host", thisAssemblyPath, "EiBreRebarUtils.TagAllRebarsInHost");
             
             PushButton pushButton = ribbonPanel.AddItem(buttonData) as PushButton;
             pushButton.ToolTip = "Tag all rebars in a host, the bars must be visible in active view";
             pushButton.LargeImage = BitmapToImageSource(Properties.Resources.TagAllRebarsInHost);
-
-
-            //Select tagged/untagged
-            //--------------------------------------
-            //Create pushbutton data to select all tagged rebars in a view
-            PushButtonData pushSelectedTagData = new PushButtonData("cmdSelectTaggedRebar", "Select \ntagged rebars", thisAssemblyPath, "EiBreRebarUtils.SelectTaggedRebars");
-            pushSelectedTagData.ToolTip = "Selects all tagged Rebar elements in view";
-            pushSelectedTagData.LargeImage = BitmapToImageSource(Properties.Resources.selectTagged);
-
-
-            //Create pushbutton data to select all tagged rebars in a view
-            PushButtonData pushUnselectedTagData = new PushButtonData("cmdSelectUntaggedRebar", "Select un-\ntagged rebars", thisAssemblyPath, "EiBreRebarUtils.SelectUntaggedRebars");
-            pushUnselectedTagData.ToolTip = "Selects all un-tagged Rebar elements in view";
-            pushUnselectedTagData.LargeImage = BitmapToImageSource(Properties.Resources.selectNotTagged);
-
-            //Create splitbutton for tag selecting
-            SplitButtonData sbData1 = new SplitButtonData("Tag Selection", "Split");
-            SplitButton sb1 = ribbonPanel.AddItem(sbData1) as SplitButton;
-            sb1.AddPushButton(pushSelectedTagData);
-            sb1.AddPushButton(pushUnselectedTagData);
-
-
-            //Create a pushbutton to remove dimension values
-            //-----------------------------------------------------------
-
-            PushButtonData pushDataRemoveDimVal = new PushButtonData("cmdRemoveDimensionValue", "Remove\ndim. value", thisAssemblyPath, "EiBreRebarUtils.RemoveDimensionValue");
-            pushDataRemoveDimVal.ToolTip = "Removes the dimension values from dimension lines.";
-           
+                              
 
             // Create a push button to cycle tags
             //--------------------------------------------------------------
@@ -96,7 +82,14 @@ namespace EiBreRebarUtils
             PulldownButtonData pullDataSelect = new PulldownButtonData("cmdRebarSelect", "Selection Tools");
             PulldownButton pullDownButtonSelect = ribbonPanel.AddItem(pullDataSelect) as PulldownButton;
             pullDownButtonSelect.LargeImage = BitmapToImageSource(Properties.Resources.select);
+            //Create pushbutton data to select all tagged rebars in a view
+            PushButtonData pushSelectedTagData = new PushButtonData("cmdSelectTaggedRebar", "Select tagged rebars", thisAssemblyPath, "EiBreRebarUtils.SelectTaggedRebars");
+            pushSelectedTagData.ToolTip = "Selects all tagged Rebar elements in view";
 
+            //Create pushbutton data to select all tagged rebars in a view
+            PushButtonData pushUnselectedTagData = new PushButtonData("cmdSelectUntaggedRebar", "Select un-tagged rebars", thisAssemblyPath, "EiBreRebarUtils.SelectUntaggedRebars");
+            pushUnselectedTagData.ToolTip = "Selects all un-tagged Rebar elements in view";
+            
             PushButtonData pushData10 = new PushButtonData("cmdSelectRebar", "Rebar Filter", thisAssemblyPath, "EiBreRebarUtils.SelectRebar");
             pushData10.ToolTip = "Rebar Filter";
   
@@ -106,14 +99,11 @@ namespace EiBreRebarUtils
             PushButtonData pushData12 = new PushButtonData("cmdSelectCategory", "Select Same Category", thisAssemblyPath, "EiBreRebarUtils.SelectSameCategory");
             pushData12.ToolTip = "When an element is selected, use this command to select all elements of the same Category visible in view.";
 
+            pullDownButtonSelect.AddPushButton(pushSelectedTagData);
+            pullDownButtonSelect.AddPushButton(pushUnselectedTagData);
             pullDownButtonSelect.AddPushButton(pushData10);
             pullDownButtonSelect.AddPushButton(pushData11);
             pullDownButtonSelect.AddPushButton(pushData12);
-
-            //Pushbutton for rebar renumbering
-            //----------------------------------------------------------------
-            PushButtonData pushData13 = new PushButtonData("cmdRenumberRebar", "Renumber", thisAssemblyPath, "EiBreRebarUtils.RenumberRebar");
-            pushData13.ToolTip = "Change a Rebar Number";
 
             //Pushbutton Schedule Mark Update
             PushButtonData pushDataScheduleMark = new PushButtonData("cmdSceduleMarkUpdate", "Schedule Mark Update", thisAssemblyPath, "EiBreRebarUtils.ScheduleMarkUpdate");
@@ -123,21 +113,21 @@ namespace EiBreRebarUtils
             PushButtonData pushDataSum = new PushButtonData("cmdSumGeometry", "Sum of geometry", thisAssemblyPath, "EiBreRebarUtils.SumGeometry");
             pushDataSum.ToolTip = "Returns the sum of Length, Area and Volume of the selected elements.";
 
-            //Pushbutton copy rebar
-            PushButtonData pushDataCopyRebar = new PushButtonData("cmdCopyRebar", "Copy Rebar", thisAssemblyPath, "EiBreRebarUtils.CopyRebar");
-            pushDataCopyRebar.ToolTip = "Copies rebar from line based elements such as beams, walls, slanted columns to other line based elements.";
-
             //Pushbutton Move from internal to shared
             PushButtonData pushDataMoveInternalShared = new PushButtonData("cmdMoveFromInternalToShared", "Move from internal to shared", thisAssemblyPath, "EiBreRebarUtils.MoveFromInternalToShared");
-
+            pushDataMoveInternalShared.ToolTip = "This command moves and rotates a link or any element from the internal coordinate system to the shared coordinate system. This is useful if you insert links Origin to Origin because Surevey Point to Survey Point doesn't exist.";
+            //Create a pushbutton to remove dimension values
+            PushButtonData pushDataRemoveDimVal = new PushButtonData("cmdRemoveDimensionValue", "Remove\ndim. value", thisAssemblyPath, "EiBreRebarUtils.RemoveDimensionValue");
+            pushDataRemoveDimVal.ToolTip = "Removes the dimension values from dimension lines.";
+            
             //PULLDOWN BUTTON OTHER
             PulldownButtonData pullDataOther = new PulldownButtonData("cmdOther", "Other tools");
             PulldownButton pullDownButtonOther = ribbonPanel.AddItem(pullDataOther) as PulldownButton;
-            pullDownButtonOther.AddPushButton(pushData13);
+            //pullDownButtonOther.AddPushButton(pushDataRenumber);
             pullDownButtonOther.AddPushButton(pushDataRemoveDimVal);
             pullDownButtonOther.AddPushButton(pushDataScheduleMark);
             pullDownButtonOther.AddPushButton(pushDataSum);
-            pullDownButtonOther.AddPushButton(pushDataCopyRebar);
+            //pullDownButtonOther.AddPushButton(pushDataCopyRebar);
             pullDownButtonOther.AddPushButton(pushDataMoveInternalShared);
             pullDownButtonOther.LargeImage = BitmapToImageSource(Properties.Resources.other);
             
