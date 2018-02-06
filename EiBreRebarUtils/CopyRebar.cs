@@ -29,8 +29,6 @@ namespace EiBreRebarUtils
             Reference ref1 = null;
             IList<Reference> ref2List = new List<Reference>();
 
-
-
             try
             {
                 ref1 = uidoc.Selection.PickObject(ObjectType.Element, new RebarHostSelectionFilter(), "Pick a rebar host to copy from");
@@ -110,6 +108,14 @@ namespace EiBreRebarUtils
                             copiedElement.get_Parameter(BuiltInParameter.WALL_BASE_OFFSET).Set(targetHost.get_Parameter(BuiltInParameter.WALL_BASE_OFFSET).AsDouble());
                             copiedElement.get_Parameter(BuiltInParameter.WALL_TOP_OFFSET).Set(targetHost.get_Parameter(BuiltInParameter.WALL_TOP_OFFSET).AsDouble());
                         }
+
+                        if (IsNotSlantedColumn(targetHost) && IsNotSlantedColumn(sourceHost))
+                        {
+                            copiedElement.get_Parameter(BuiltInParameter.FAMILY_BASE_LEVEL_PARAM).Set(targetHost.get_Parameter(BuiltInParameter.FAMILY_BASE_LEVEL_PARAM).AsElementId());
+                            copiedElement.get_Parameter(BuiltInParameter.FAMILY_BASE_LEVEL_OFFSET_PARAM).Set(targetHost.get_Parameter(BuiltInParameter.FAMILY_BASE_LEVEL_OFFSET_PARAM).AsDouble());
+                            copiedElement.get_Parameter(BuiltInParameter.FAMILY_TOP_LEVEL_PARAM).Set(targetHost.get_Parameter(BuiltInParameter.FAMILY_TOP_LEVEL_PARAM).AsElementId());
+                            copiedElement.get_Parameter(BuiltInParameter.FAMILY_TOP_LEVEL_OFFSET_PARAM).Set(targetHost.get_Parameter(BuiltInParameter.FAMILY_TOP_LEVEL_OFFSET_PARAM).AsDouble());
+                        } 
                     }
                     catch { }
 
@@ -153,6 +159,10 @@ namespace EiBreRebarUtils
                 t1.Commit();
             }
             return Result.Succeeded;
+        }
+        private static bool IsNotSlantedColumn(Element e)
+        {
+            return (int)BuiltInCategory.OST_StructuralColumns == e.Category.Id.IntegerValue && e.Location is LocationPoint;
         }
     } //Class
     public class RebarHostSelectionFilter : ISelectionFilter
