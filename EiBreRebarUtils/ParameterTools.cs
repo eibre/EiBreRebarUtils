@@ -33,7 +33,15 @@ namespace EiBreRebarUtils
 
                     string rebarNumber1 = element.get_Parameter(BuiltInParameter.REBAR_NUMBER).AsString();
                     string partition1 = element.get_Parameter(BuiltInParameter.NUMBER_PARTITION_PARAM).AsString();
-                    string combinedParameter = partition1 + rebarNumber1;
+                    string combinedParameter = "";
+                    if (partition1.Contains("LM") || partition1.Contains("RM"))
+                    {
+                        combinedParameter = partition1;
+                    }
+                    else
+                    {
+                        combinedParameter = partition1 + rebarNumber1;
+                    }
 
                     if (scheduleMark.AsString() != combinedParameter)
                     {
