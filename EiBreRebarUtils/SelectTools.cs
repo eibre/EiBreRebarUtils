@@ -56,7 +56,8 @@ namespace EiBreRebarUtils
             return Result.Succeeded;
         }
     } //class
-    //Set the attributes
+      //Set the attributes
+
     [TransactionAttribute(TransactionMode.Manual)]
     [RegenerationAttribute(RegenerationOption.Manual)]
 
@@ -67,24 +68,32 @@ namespace EiBreRebarUtils
             Application app = commandData.Application.Application;
             UIDocument uidoc = commandData.Application.ActiveUIDocument;
             Document doc = uidoc.Document;
-            //get the workset of the selected element
-            ElementId selectedElementId = uidoc.Selection.GetElementIds().FirstOrDefault();
 
-            if (selectedElementId == null) return Result.Failed;
+            if (!doc.IsWorkshared) return Result.Failed;
 
-            Element selectedElement = doc.GetElement(selectedElementId);
-            Workset workset = new FilteredWorksetCollector(doc).Where(w => w.Id == selectedElement.WorksetId).FirstOrDefault();
+            List<WorksetId> worksetIds = uidoc.Selection.GetElementIds().Select(id => doc.GetElement(id)).Select(e => e.WorksetId).Distinct().ToList();
+            ICollection<ElementId> elementIdsWithSameWorkset = new List<ElementId>();
 
-
-            // filter all elements that belong to the given workset
-            FilteredElementCollector elementCollector = new FilteredElementCollector(doc, doc.ActiveView.Id);
-            ElementWorksetFilter elementWorksetFilter = new ElementWorksetFilter(workset.Id);
-            ICollection<ElementId> worksetElemsfounds = elementCollector.WherePasses(elementWorksetFilter).ToElementIds();
-
-            //Select all elements on the workset
-            uidoc.Selection.SetElementIds(worksetElemsfounds);
-            return Result.Succeeded;
+            foreach (var worksetsId in worksetIds)
+            {
+                ElementWorksetFilter elementWorksetFilter = new ElementWorksetFilter(worksetsId);
+                var ids = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(elementWorksetFilter).ToElementIds();
+                foreach (var id in ids)
+                {
+                    elementIdsWithSameWorkset.Add(id);
+                }
+            }
+            if (elementIdsWithSameWorkset.Any())
+            {
+                uidoc.Selection.SetElementIds(elementIdsWithSameWorkset);
+                return Result.Succeeded;
+            }
+            else
+            {
+                return Result.Succeeded;
+            }
         }
+
     } //class
 
     //Set the attributes
@@ -98,18 +107,20 @@ namespace EiBreRebarUtils
             Application app = commandData.Application.Application;
             UIDocument uidoc = commandData.Application.ActiveUIDocument;
             Document doc = uidoc.Document;
-            //get the workset of the selected element
-            ElementId selectedElementId = uidoc.Selection.GetElementIds().FirstOrDefault();
 
-            if (selectedElementId == null) return Result.Failed;
+            ICollection<ElementId> selectedIds = uidoc.Selection.GetElementIds();
 
-            Element selectedElement = doc.GetElement(selectedElementId);
-
-            FilteredElementCollector elementCollector = new FilteredElementCollector(doc, doc.ActiveView.Id);
-            BuiltInCategory myCatEnum = (BuiltInCategory)Enum.Parse(typeof(BuiltInCategory), selectedElement.Category.Id.ToString());
-            var elemsfound = elementCollector.OfCategory(myCatEnum).ToElementIds();
-
-            uidoc.Selection.SetElementIds(elemsfound);
+            if (selectedIds.Any())
+            {
+                List<ElementId> selectedCategories = selectedIds.ToList().Select(x => doc.GetElement(x)).Select(x => x.Category.Id).Distinct().ToList();
+                ElementMulticategoryFilter multiCategoryFilter = new ElementMulticategoryFilter(selectedCategories);
+                ICollection<ElementId> idsToSelect = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(multiCategoryFilter).ToElementIds();
+                uidoc.Selection.SetElementIds(idsToSelect);
+            }
+            else
+            {
+                return Result.Failed;
+            }
             return Result.Succeeded;
         }
     } //class
