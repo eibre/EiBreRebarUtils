@@ -107,6 +107,8 @@ namespace EiBreRebarUtils
                         {
                             copiedElement.get_Parameter(BuiltInParameter.WALL_BASE_OFFSET).Set(targetHost.get_Parameter(BuiltInParameter.WALL_BASE_OFFSET).AsDouble());
                             copiedElement.get_Parameter(BuiltInParameter.WALL_TOP_OFFSET).Set(targetHost.get_Parameter(BuiltInParameter.WALL_TOP_OFFSET).AsDouble());
+                            copiedElement.get_Parameter(BuiltInParameter.WALL_BASE_CONSTRAINT).Set(targetHost.get_Parameter(BuiltInParameter.WALL_BASE_CONSTRAINT).AsElementId());
+                            copiedElement.get_Parameter(BuiltInParameter.WALL_HEIGHT_TYPE).Set(targetHost.get_Parameter(BuiltInParameter.WALL_HEIGHT_TYPE).AsElementId());
                         }
 
                         if (IsNotSlantedColumn(targetHost) && IsNotSlantedColumn(sourceHost))
