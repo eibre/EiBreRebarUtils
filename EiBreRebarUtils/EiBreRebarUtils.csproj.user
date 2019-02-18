@@ -15,5 +15,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2019|x64'">
     <StartProgram>C:\Program Files\Autodesk\Revit 2019\Revit.exe</StartProgram>
     <StartAction>Program</StartAction>
+    <StartArguments>C:\Users\eibre\Documents\Rebar-Debug.rvt</StartArguments>
   </PropertyGroup>
 </Project>

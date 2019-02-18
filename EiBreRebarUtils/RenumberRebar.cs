@@ -28,8 +28,8 @@ namespace EiBreRebarUtils
             var partitions = schema.GetNumberingSequences();
             if (!partitions.Any())
             {
-                TaskDialog.Show("Warning", "No partitions in the document");
-                return Result.Cancelled;
+                message = "No partitions in the document";
+                return Result.Failed;
             }
             Dictionary<string, string[]> rebarNumbers = new Dictionary<string, string[]>(); 
             foreach(string p in partitions)
@@ -51,7 +51,7 @@ namespace EiBreRebarUtils
                     t.Start();
                     IList<ElementId> ids = schema.ChangeNumber(partition, fromNumber, toNumber);
                     t.Commit();
-                    //TaskDialog.Show("Changed numbers on rebars with id",string.Join(", ",ids.Select(i=>i.ToString())));
+                    message = "Changed numbers on rebars with id" + string.Join(", ",ids.Select(i=>i.ToString()));
                     uidoc.Selection.SetElementIds(ids);
                 }
             }
@@ -70,5 +70,43 @@ namespace EiBreRebarUtils
             int[] numbers = list.SelectMany(i => i).ToArray();
             return numbers.Select(i => i.ToString()).ToArray();
         }
-    }
+    } //class
+
+
+    //Set the attributes
+    [TransactionAttribute(TransactionMode.Manual)]
+    [RegenerationAttribute(RegenerationOption.Manual)]
+
+    public class CopyRebarNumberFromScheduleMark : IExternalCommand
+    {
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
+        {
+            Application app = commandData.Application.Application;
+            Document doc = commandData.Application.ActiveUIDocument.Document;
+            UIDocument uidoc = commandData.Application.ActiveUIDocument;
+
+            NumberingSchema schema = NumberingSchema.GetNumberingSchema(doc, NumberingSchemaTypes.StructuralNumberingSchemas.Rebar);
+            IList<string> partitions = schema.GetNumberingSequences();
+            if (!partitions.Any())
+            {
+                message = "No partitions in the document";
+                return Result.Failed;
+            }
+             
+            WindowSelectPartition dialog = new WindowSelectPartition(partitions);
+            dialog.ShowDialog();
+            if (dialog.DialogResult.HasValue && dialog.DialogResult.Value)
+            {
+                string selectedPartition = dialog.comboPartition.SelectedValue.ToString();
+            }   
+            else
+            {
+                return Result.Cancelled;
+            }
+
+            //renumber
+
+            return Result.Succeeded;
+        }
+    } // class
 } //namespace

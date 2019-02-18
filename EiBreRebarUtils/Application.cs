@@ -119,13 +119,17 @@ namespace EiBreRebarUtils
             //Create a pushbutton to remove dimension values
             PushButtonData pushDataRemoveDimVal = new PushButtonData("cmdRemoveDimensionValue", "Remove\ndim. value", thisAssemblyPath, "EiBreRebarUtils.RemoveDimensionValue");
             pushDataRemoveDimVal.ToolTip = "Removes the dimension values from dimension lines.";
-            
+
+            //Pushbutton CopyRebarNumberFromScheduleMark
+            PushButtonData pushDataCopyRebarNumberFromScheduleMark = new PushButtonData("cmdCopyRebarNumberFromScheduleMark", "Copy Rebar Number from Shedule Mark", thisAssemblyPath, "EiBreRebarUtils.CopyRebarNumberFromScheduleMark");
+            pushDataCopyRebarNumberFromScheduleMark.ToolTip = "This command asks the user to select a partition and tries to change all Rebar Number values to match the last part of Schedue Mark. All schedule marks must begin with the partition name, and there can only be one number extracted from Schedule Mark for each Rebar Number.";
             //PULLDOWN BUTTON OTHER
             PulldownButtonData pullDataOther = new PulldownButtonData("cmdOther", "Other tools");
             PulldownButton pullDownButtonOther = ribbonPanel.AddItem(pullDataOther) as PulldownButton;
             //pullDownButtonOther.AddPushButton(pushDataRenumber);
             pullDownButtonOther.AddPushButton(pushDataRemoveDimVal);
             pullDownButtonOther.AddPushButton(pushDataScheduleMark);
+            pullDownButtonOther.AddPushButton(pushDataCopyRebarNumberFromScheduleMark);
             pullDownButtonOther.AddPushButton(pushDataSum);
             //pullDownButtonOther.AddPushButton(pushDataCopyRebar);
             pullDownButtonOther.AddPushButton(pushDataMoveInternalShared);
