@@ -161,6 +161,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="RebarInBend.cs" />
     <Compile Include="SelectTools.cs" />
     <Compile Include="RebarVisibility.cs" />
     <Compile Include="RenumberRebar.cs" />
