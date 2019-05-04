@@ -26,15 +26,19 @@ namespace EiBreRebarUtils
             Application app = commandData.Application.Application;
             UIDocument uidoc = commandData.Application.ActiveUIDocument;
             Document doc = uidoc.Document;
-            Reference pickedReference = uidoc.Selection.PickObject(ObjectType.Element, "Pick a Rebar");
-            if (pickedReference == null)
+
+            Reference pickedReference = null;
+            try
             {
-                message = "Nothing is selected";
-                return Result.Failed;
+                pickedReference = uidoc.Selection.PickObject(ObjectType.Element, new RebarSelectFilter() , "Pick a Rebar");
+            }
+            catch (Autodesk.Revit.Exceptions.OperationCanceledException)
+            {
+                return Result.Cancelled;
             }
 
             Rebar rebar = doc.GetElement(pickedReference) as Rebar;
-            if (!rebar.IsRebarShapeDriven() && rebar.LayoutRule == RebarLayoutRule.Single)
+            if (!rebar.IsRebarShapeDriven() || rebar.LayoutRule == RebarLayoutRule.Single)
             {
                 message = "Singe rebar and non-shape driven rebars are not supported.";
                 return Result.Failed;
@@ -42,41 +46,13 @@ namespace EiBreRebarUtils
             double rebarDiameter = rebar.GetBendData().BarDiameter;
             RebarBarType barType = doc.GetElement(rebar.GetTypeId()) as RebarBarType;
 
-            RebarShapeDrivenAccessor sda = rebar.GetShapeDrivenAccessor();
-            Transform firstTransform = sda.GetBarPositionTransform(0);
-            Transform lastTransform = sda.GetBarPositionTransform(rebar.NumberOfBarPositions - 1);
-            IList<Curve> firstCurves = rebar.GetCenterlineCurves(false, false, false, MultiplanarOption.IncludeOnlyPlanarCurves, 0);
-            IList<Curve> lastCurves = rebar.GetCenterlineCurves(false, false, false, MultiplanarOption.IncludeOnlyPlanarCurves, rebar.NumberOfBarPositions - 1);
-            IList<Curve> firstTransformedCurves = new List<Curve>();
-            IList<Curve> lastTransformedCurves = new List<Curve>();
-            foreach (Curve curve in firstCurves)
-            {
-                firstTransformedCurves.Add(curve.CreateTransformed(firstTransform));
-            }
-            foreach (Curve curve in lastCurves)
-            {
-                lastTransformedCurves.Add(curve.CreateTransformed(lastTransform));
-            }
-            XYZ direction = firstTransformedCurves.OfType<Line>().First().Direction;
+            IList<Curve> transformedCurvesFirst = GetTransformedCenterLineCurvesAtPostition(rebar, 0);
+            IList<Curve> transformedCurvesLast = GetTransformedCenterLineCurvesAtPostition(rebar, rebar.NumberOfBarPositions-1);
 
-            List<XYZ> rebarInBendFirstPoints = new List<XYZ>();
-            foreach (Arc arcFirst in firstTransformedCurves.OfType<Arc>())
-            {
-                XYZ center = arcFirst.Center;
-                XYZ arcMidpoint = arcFirst.Evaluate(0.5, true);
-                Line line = Line.CreateBound(center, arcMidpoint);
-                double offset = line.Length - rebarDiameter;
-                rebarInBendFirstPoints.Add(line.Evaluate(offset, false));
-            }
-            List<XYZ> rebarInBendLastPoints = new List<XYZ>();
-            foreach (Arc arcLast in lastTransformedCurves.OfType<Arc>())
-            {
-                XYZ center = arcLast.Center;
-                XYZ arcMidpoint = arcLast.Evaluate(0.5, true);
-                Line line = Line.CreateBound(center, arcMidpoint);
-                double offset = line.Length - rebarDiameter;
-                rebarInBendLastPoints.Add(line.Evaluate(offset, false));
-            }
+            XYZ direction = transformedCurvesFirst.OfType<Line>().First().Direction;
+
+            List<XYZ> rebarInBendFirstPoints = GetPointInArc(transformedCurvesFirst, 0);
+            List<XYZ> rebarInBendLastPoints = GetPointInArc(transformedCurvesLast, rebar.NumberOfBarPositions-1);
 
             using (Transaction t1 = new Transaction(doc, "Add rebar in bend"))
             {
@@ -91,8 +67,36 @@ namespace EiBreRebarUtils
                 doc.Regenerate();
                 t1.Commit();
             }
-
             return Result.Succeeded;
+        }
+
+        private List<XYZ> GetPointInArc(IList<Curve> transformedCurves, double diameter)
+        {
+            List<XYZ> rebarInBendPoints = new List<XYZ>();
+
+            foreach (Arc arc in transformedCurves.OfType<Arc>())
+            {
+                XYZ center = arc.Center;
+                XYZ arcMidpoint = arc.Evaluate(0.5, true);
+                Line line = Line.CreateBound(center, arcMidpoint);
+                double offset = line.Length - diameter;
+                rebarInBendPoints.Add(line.Evaluate(offset, false));
+            }
+
+            return rebarInBendPoints;
+        }
+
+        private IList<Curve> GetTransformedCenterLineCurvesAtPostition(Rebar rebar, int barPosIndex)
+        {
+            RebarShapeDrivenAccessor sda = rebar.GetShapeDrivenAccessor();
+            Transform transform = sda.GetBarPositionTransform(barPosIndex);
+            IList<Curve> curves = rebar.GetCenterlineCurves(false, false, false, MultiplanarOption.IncludeOnlyPlanarCurves, barPosIndex);
+            IList<Curve> transformedCurves = new List<Curve>();
+            foreach (Curve curve in curves)
+            {
+                transformedCurves.Add(curve.CreateTransformed(transform));
+            }
+            return transformedCurves;
         }
     } //class
 } //namespace
