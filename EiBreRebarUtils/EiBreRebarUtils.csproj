@@ -161,6 +161,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="RebarParameterFromText.cs" />
     <Compile Include="SelectTools.cs" />
     <Compile Include="RebarVisibility.cs" />
     <Compile Include="RenumberRebar.cs" />
@@ -168,6 +169,9 @@
     <Compile Include="RebarTagUtils.cs" />
     <Compile Include="Application.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WindowTextInput.xaml.cs">
+      <DependentUpon>WindowTextInput.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowSelectPartition.xaml.cs">
       <DependentUpon>WindowSelectPartition.xaml</DependentUpon>
     </Compile>
@@ -207,6 +211,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="WindowTextInput.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="WindowSelectPartition.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
