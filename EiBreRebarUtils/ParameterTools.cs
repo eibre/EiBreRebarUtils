@@ -23,7 +23,11 @@ namespace EiBreRebarUtils
     {
         public static void ScheduleMarkUpdater(Document doc)
         {
+            //Ønsker å sortere på partition (eller partition contains f.eks "D1") for å slippe å endre på ting som er i grupper/utsendt
+            
             IList<Element> elements1 = new FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Rebar).WhereElementIsNotElementType().ToElements();
+
+
 
             foreach (var element in elements1)
             {
@@ -33,8 +37,13 @@ namespace EiBreRebarUtils
 
                     string rebarNumber1 = element.get_Parameter(BuiltInParameter.REBAR_NUMBER).AsString();
                     string partition1 = element.get_Parameter(BuiltInParameter.NUMBER_PARTITION_PARAM).AsString();
+                    Rebar rebar = doc.GetElement(element.Id) as Rebar;
+                    Parameter rebarShapeParameter = rebar.get_Parameter(BuiltInParameter.REBAR_SHAPE);
+                    Element rebarShape = doc.GetElement(rebarShapeParameter.AsElementId());
+                    string shapeCode = rebarShape.Name;
+
                     string combinedParameter = "";
-                    if (partition1.Contains("LM") || partition1.Contains("RM"))
+                    if (partition1.Contains("LM") || partition1.Contains("RM")||shapeCode.Contains("LM"))
                     {
                         combinedParameter = partition1;
                     }
