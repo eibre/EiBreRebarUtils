@@ -123,6 +123,11 @@ namespace EiBreRebarUtils
             //Pushbutton CopyRebarNumberFromScheduleMark
             PushButtonData pushDataCopyRebarNumberFromScheduleMark = new PushButtonData("cmdCopyRebarNumberFromScheduleMark", "Copy Rebar Number from Shedule Mark", thisAssemblyPath, "EiBreRebarUtils.CopyRebarNumberFromScheduleMark");
             pushDataCopyRebarNumberFromScheduleMark.ToolTip = "This command asks the user to select a partition and tries to change all Rebar Number values to match the last part of Schedue Mark. All schedule marks must begin with the partition name, and there can only be one number extracted from Schedule Mark for each Rebar Number.";
+
+            //Pushbutton RebarInBend
+            PushButtonData pushDataRebarInBend = new PushButtonData("cmdRebarInBend", "Add rebar in bend", thisAssemblyPath, "EiBreRebarUtils.RebarInBend");
+            pushDataRebarInBend.ToolTip = "This command adds a straight rebar (00) in each bend of a bendt bar (including hooks) with the same diameter as the bendt bar.";
+
             //PULLDOWN BUTTON OTHER
             PulldownButtonData pullDataOther = new PulldownButtonData("cmdOther", "Other tools");
             PulldownButton pullDownButtonOther = ribbonPanel.AddItem(pullDataOther) as PulldownButton;
@@ -133,8 +138,12 @@ namespace EiBreRebarUtils
             pullDownButtonOther.AddPushButton(pushDataSum);
             //pullDownButtonOther.AddPushButton(pushDataCopyRebar);
             pullDownButtonOther.AddPushButton(pushDataMoveInternalShared);
+            pullDownButtonOther.AddPushButton(pushDataRebarInBend);
+
             pullDownButtonOther.LargeImage = BitmapToImageSource(Properties.Resources.other);
             
+
+
             return Result.Succeeded;
         }
 

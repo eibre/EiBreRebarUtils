@@ -162,6 +162,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="RebarParameterFromText.cs" />
+    <Compile Include="RebarInBend.cs" />
     <Compile Include="SelectTools.cs" />
     <Compile Include="RebarVisibility.cs" />
     <Compile Include="RenumberRebar.cs" />
