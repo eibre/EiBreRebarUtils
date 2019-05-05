@@ -8,7 +8,7 @@
         Title="EiBre Rebar Utils: Text Input"
         WindowStartupLocation="CenterScreen"
         Topmost="True">
-    <Grid Margin="15" MinWidth="250" FocusManager.FocusedElement="{Binding ElementName=textInput}">
+    <Grid Margin="15" MinWidth="250">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>

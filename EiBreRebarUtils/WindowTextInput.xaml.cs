@@ -25,11 +25,13 @@ namespace EiBreRebarUtils
             InitializeComponent();
             textInput.Text = "ø12c200-P UK YL";
             textInput.SelectAll();
+            textInput.Focus();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = true;
         }
+
     }
 }
