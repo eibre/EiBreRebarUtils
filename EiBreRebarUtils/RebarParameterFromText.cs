@@ -17,7 +17,7 @@ namespace EiBreRebarUtils
     [TransactionAttribute(TransactionMode.Manual)]
     [RegenerationAttribute(RegenerationOption.Manual)]
 
-    public class RebarParametersFromText : IExternalCommand
+    public class RebarParameterFromText : IExternalCommand
     {
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
@@ -35,6 +35,15 @@ namespace EiBreRebarUtils
             else
             {
                 return Result.Cancelled;
+            }
+
+            ICollection<ElementId> selectedElementIds = uidoc.Selection.GetElementIds();
+
+            List<Rebar> selectedRebars = selectedElementIds.Select(id => doc.GetElement(id)).Cast<Rebar>().ToList();
+            if(selectedRebars.Count < 1)
+            {
+                selectedRebars.Add(doc.GetElement(uidoc.Selection.PickObject(ObjectType.Element, "pick rebar")) as Rebar);
+           
             }
 
             //string input = "ø12c200-P UK";
@@ -60,16 +69,18 @@ namespace EiBreRebarUtils
             //COMMENTS
             string comments = Regex.Match(input, @"\s(.*)").Groups[1].Value;
 
-            Rebar rebar = doc.GetElement(uidoc.Selection.PickObject(ObjectType.Element, "pick rebar")) as Rebar;
+            foreach(Rebar rebar in selectedRebars)
+            {
+                Transaction t1 = new Transaction(doc, "Set parameters");
+                t1.Start();
+                rebar.get_Parameter(BuiltInParameter.REBAR_ELEM_LAYOUT_RULE).Set(2);
+                rebar.get_Parameter(BuiltInParameter.REBAR_ELEM_BAR_SPACING).Set(spacing);
+                rebar.ChangeTypeId(type.Id);
+                rebar.get_Parameter(BuiltInParameter.NUMBER_PARTITION_PARAM).Set(partitionString);
+                rebar.get_Parameter(BuiltInParameter.ALL_MODEL_INSTANCE_COMMENTS).Set(comments);
+                t1.Commit();
+            }
 
-            Transaction t1 = new Transaction(doc, "Set parameters");
-            t1.Start();
-            rebar.get_Parameter(BuiltInParameter.REBAR_ELEM_LAYOUT_RULE).Set(2);
-            rebar.get_Parameter(BuiltInParameter.REBAR_ELEM_BAR_SPACING).Set(spacing);
-            rebar.ChangeTypeId(type.Id);
-            rebar.get_Parameter(BuiltInParameter.NUMBER_PARTITION_PARAM).Set(partitionString);
-            rebar.get_Parameter(BuiltInParameter.ALL_MODEL_INSTANCE_COMMENTS).Set(comments);
-            t1.Commit();
 
             return Result.Succeeded;
         }

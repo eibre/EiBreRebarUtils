@@ -128,6 +128,10 @@ namespace EiBreRebarUtils
             PushButtonData pushDataRebarInBend = new PushButtonData("cmdRebarInBend", "Add rebar in bend", thisAssemblyPath, "EiBreRebarUtils.RebarInBend");
             pushDataRebarInBend.ToolTip = "This command adds a straight rebar (00) in each bend of a bendt bar (including hooks) with the same diameter as the bendt bar.";
 
+            //Pushbutton RebarParameterFromText
+            PushButtonData pushDataRebarParameterFromText = new PushButtonData("cmdRebarParameterFromText", "Set rebar parameters", thisAssemblyPath, "EiBreRebarUtils.RebarParameterFromText");
+            pushDataRebarParameterFromText.Text = "Set bar type (diameter), layout rule, spacing, partition and comment from a string. e.g. ø12c200-P UK";
+
             //PULLDOWN BUTTON OTHER
             PulldownButtonData pullDataOther = new PulldownButtonData("cmdOther", "Other tools");
             PulldownButton pullDownButtonOther = ribbonPanel.AddItem(pullDataOther) as PulldownButton;
@@ -139,6 +143,7 @@ namespace EiBreRebarUtils
             //pullDownButtonOther.AddPushButton(pushDataCopyRebar);
             pullDownButtonOther.AddPushButton(pushDataMoveInternalShared);
             pullDownButtonOther.AddPushButton(pushDataRebarInBend);
+            pullDownButtonOther.AddPushButton(pushDataRebarParameterFromText);
 
             pullDownButtonOther.LargeImage = BitmapToImageSource(Properties.Resources.other);
             
