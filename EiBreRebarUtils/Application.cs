@@ -130,7 +130,7 @@ namespace EiBreRebarUtils
 
             //Pushbutton RebarParameterFromText
             PushButtonData pushDataRebarParameterFromText = new PushButtonData("cmdRebarParameterFromText", "Set rebar parameters", thisAssemblyPath, "EiBreRebarUtils.RebarParameterFromText");
-            pushDataRebarParameterFromText.Text = "Set bar type (diameter), layout rule, spacing, partition and comment from a string. e.g. ø12c200-P UK";
+            pushDataRebarParameterFromText.ToolTip = "Set bar type (diameter), layout rule, spacing, partition and comment from a string. e.g. ø12c200-P UK";
 
             //PULLDOWN BUTTON OTHER
             PulldownButtonData pullDataOther = new PulldownButtonData("cmdOther", "Other tools");

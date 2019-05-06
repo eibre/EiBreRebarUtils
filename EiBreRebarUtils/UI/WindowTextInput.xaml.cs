@@ -20,10 +20,10 @@ namespace EiBreRebarUtils
     /// </summary>
     public partial class WindowTextInput : Window
     {
-        public WindowTextInput()
+        public WindowTextInput(string StartText)
         {
             InitializeComponent();
-            textInput.Text = "ø12c200-P UK YL";
+            textInput.Text = StartText;
             textInput.SelectAll();
             textInput.Focus();
         }

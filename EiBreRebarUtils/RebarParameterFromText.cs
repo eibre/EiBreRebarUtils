@@ -25,9 +25,22 @@ namespace EiBreRebarUtils
             Document doc = commandData.Application.ActiveUIDocument.Document;
             UIDocument uidoc = commandData.Application.ActiveUIDocument;
 
-            WindowTextInput dialog = new WindowTextInput();
-            dialog.ShowDialog();
+            string defaultText = "ø12c200-P UK";
+
+            List<Rebar> selectedRebars = uidoc.Selection.GetElementIds().Select(id => doc.GetElement(id)).OfType<Rebar>().ToList();
+            if (selectedRebars.Count < 1)
+            {
+                selectedRebars.Add(doc.GetElement(uidoc.Selection.PickObject(ObjectType.Element, "pick rebar")) as Rebar);
+            }
+            else if(selectedRebars.Count == 1)
+            {
+                Rebar rebar = selectedRebars.First();
+                defaultText = GetDiameter(rebar) + GetSpacing(rebar) + GetPartition(rebar) + GetComments(rebar);
+            }
+
             string input = "";
+            WindowTextInput dialog = new WindowTextInput(defaultText);
+            dialog.ShowDialog();
             if (dialog.DialogResult.HasValue && dialog.DialogResult.Value)
             {
                 input = dialog.textInput.Text;
@@ -37,31 +50,16 @@ namespace EiBreRebarUtils
                 return Result.Cancelled;
             }
 
-            ICollection<ElementId> selectedElementIds = uidoc.Selection.GetElementIds();
-
-            List<Rebar> selectedRebars = selectedElementIds.Select(id => doc.GetElement(id)).Cast<Rebar>().ToList();
-            if(selectedRebars.Count < 1)
-            {
-                selectedRebars.Add(doc.GetElement(uidoc.Selection.PickObject(ObjectType.Element, "pick rebar")) as Rebar);
-           
-            }
-
-            //string input = "ø12c200-P UK";
-
             Units units = doc.GetUnits();
 
             //DIAMETER
-            //Diameter is a type property of rebar type. Match name?
+            //Diameter is a type property of rebar type. In Norconsult the diameter is included in type name.
             FilteredElementCollector fec = new FilteredElementCollector(doc).OfClass(typeof(RebarBarType));
             string diameter = Regex.Match(input, @"ø(\d*)").Groups[1].Value;
             RebarBarType type = fec.Cast<RebarBarType>().First(q => q.Name.Contains(diameter));
-
-
+            
             //SPACING
             string spacingString = Regex.Match(input, @"c(\d*)").Groups[1].Value;
-            double spacing = double.Parse(spacingString);
-            DisplayUnitType displayUnitSpacing = units.GetFormatOptions(UnitType.UT_Reinforcement_Spacing).DisplayUnits;
-            spacing = UnitUtils.ConvertToInternalUnits(spacing, displayUnitSpacing);
 
             //PARTITION
             string partitionString = Regex.Match(input, @"-(\w*)").Groups[1].Value;
@@ -73,9 +71,10 @@ namespace EiBreRebarUtils
             {
                 Transaction t1 = new Transaction(doc, "Set parameters");
                 t1.Start();
-                rebar.get_Parameter(BuiltInParameter.REBAR_ELEM_LAYOUT_RULE).Set(2);
-                rebar.get_Parameter(BuiltInParameter.REBAR_ELEM_BAR_SPACING).Set(spacing);
                 rebar.ChangeTypeId(type.Id);
+        
+                SetSpacing(rebar, spacingString);
+
                 rebar.get_Parameter(BuiltInParameter.NUMBER_PARTITION_PARAM).Set(partitionString);
                 rebar.get_Parameter(BuiltInParameter.ALL_MODEL_INSTANCE_COMMENTS).Set(comments);
                 t1.Commit();
@@ -84,5 +83,76 @@ namespace EiBreRebarUtils
 
             return Result.Succeeded;
         }
+
+        private static string GetDiameter(Rebar rebar)
+        {
+            Parameter diameterParam = rebar.get_Parameter(BuiltInParameter.REBAR_BAR_DIAMETER);
+            DisplayUnitType unitType = diameterParam.DisplayUnitType;
+            double diameter = diameterParam.AsDouble();
+            diameter = UnitUtils.ConvertFromInternalUnits(diameter, unitType);
+            return "ø" + diameter.ToString();
+        }
+
+        private static string GetSpacing(Rebar rebar)
+        {
+            Parameter layoutParam = rebar.get_Parameter(BuiltInParameter.REBAR_ELEM_LAYOUT_RULE);
+            if (layoutParam.AsInteger() == 0)
+            {
+                return "";
+            }
+            Parameter spacingParam = rebar.get_Parameter(BuiltInParameter.REBAR_ELEM_BAR_SPACING);
+            DisplayUnitType unitType = spacingParam.DisplayUnitType;
+            double spacing = spacingParam.AsDouble();
+             spacing =  UnitUtils.ConvertFromInternalUnits(spacing, unitType);
+            return "c" + spacing.ToString("0");
+        }
+
+        private static string GetPartition(Rebar rebar)
+        {
+            string partition = rebar.get_Parameter(BuiltInParameter.NUMBER_PARTITION_PARAM).AsString();
+            if (partition == "")
+            {
+                return "";
+            }
+            else
+            {
+                return "-" + partition;
+            }
+        }
+
+        private static string GetComments(Rebar rebar)
+        {
+            string comments = rebar.get_Parameter(BuiltInParameter.ALL_MODEL_INSTANCE_COMMENTS).AsString();
+            if (comments == "")
+            {
+                return "";
+            }
+            else
+            {
+                return " " + comments;
+            }
+        }
+
+        private static void SetSpacing(Rebar rebar, string spacingString)
+        {
+            if(spacingString == "")
+            {
+                //Set layout to single
+                rebar.get_Parameter(BuiltInParameter.REBAR_ELEM_LAYOUT_RULE).Set(0);
+            }
+            else
+            {
+                //Set layout to maximum spacing:
+                rebar.get_Parameter(BuiltInParameter.REBAR_ELEM_LAYOUT_RULE).Set(2);
+
+                Parameter spacingParam = rebar.get_Parameter(BuiltInParameter.REBAR_ELEM_BAR_SPACING);
+                DisplayUnitType displayUnitSpacing = spacingParam.DisplayUnitType;
+                double spacing = double.Parse(spacingString);
+                spacing = UnitUtils.ConvertToInternalUnits(spacing, displayUnitSpacing);
+                spacingParam.Set(spacing);
+            }
+
+        }
+
     } // class
 } //namespace
