@@ -135,19 +135,16 @@ namespace EiBreRebarUtils
             //PULLDOWN BUTTON OTHER
             PulldownButtonData pullDataOther = new PulldownButtonData("cmdOther", "Other tools");
             PulldownButton pullDownButtonOther = ribbonPanel.AddItem(pullDataOther) as PulldownButton;
-            //pullDownButtonOther.AddPushButton(pushDataRenumber);
+
             pullDownButtonOther.AddPushButton(pushDataRemoveDimVal);
             pullDownButtonOther.AddPushButton(pushDataScheduleMark);
-            pullDownButtonOther.AddPushButton(pushDataCopyRebarNumberFromScheduleMark);
+            //pullDownButtonOther.AddPushButton(pushDataCopyRebarNumberFromScheduleMark); // Command not finished yet
             pullDownButtonOther.AddPushButton(pushDataSum);
-            //pullDownButtonOther.AddPushButton(pushDataCopyRebar);
             pullDownButtonOther.AddPushButton(pushDataMoveInternalShared);
             pullDownButtonOther.AddPushButton(pushDataRebarInBend);
             pullDownButtonOther.AddPushButton(pushDataRebarParameterFromText);
 
             pullDownButtonOther.LargeImage = BitmapToImageSource(Properties.Resources.other);
-            
-
 
             return Result.Succeeded;
         }
