@@ -149,10 +149,10 @@
   <ItemGroup>
     <Compile Include="Coordinates.cs" />
     <Compile Include="CopyRebar.cs" />
-    <Compile Include="FormRenumber.cs">
+    <Compile Include="UI\FormRenumber.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormRenumber.Designer.cs">
+    <Compile Include="UI\FormRenumber.Designer.cs">
       <DependentUpon>FormRenumber.cs</DependentUpon>
     </Compile>
     <Compile Include="ParameterTools.cs" />
@@ -170,15 +170,15 @@
     <Compile Include="RebarTagUtils.cs" />
     <Compile Include="Application.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WindowTextInput.xaml.cs">
+    <Compile Include="UI\WindowTextInput.xaml.cs">
       <DependentUpon>WindowTextInput.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WindowSelectPartition.xaml.cs">
+    <Compile Include="UI\WindowSelectPartition.xaml.cs">
       <DependentUpon>WindowSelectPartition.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="FormRenumber.resx">
+    <EmbeddedResource Include="UI\FormRenumber.resx">
       <DependentUpon>FormRenumber.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -212,15 +212,16 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="WindowTextInput.xaml">
+    <Page Include="UI\WindowTextInput.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="WindowSelectPartition.xaml">
+    <Page Include="UI\WindowSelectPartition.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
