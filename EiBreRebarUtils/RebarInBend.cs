@@ -51,8 +51,8 @@ namespace EiBreRebarUtils
 
             XYZ direction = transformedCurvesFirst.OfType<Line>().First().Direction;
 
-            List<XYZ> rebarInBendFirstPoints = GetPointInArc(transformedCurvesFirst, 0);
-            List<XYZ> rebarInBendLastPoints = GetPointInArc(transformedCurvesLast, rebar.NumberOfBarPositions-1);
+            List<XYZ> rebarInBendFirstPoints = GetPointInArc(transformedCurvesFirst, rebarDiameter);
+            List<XYZ> rebarInBendLastPoints = GetPointInArc(transformedCurvesLast, rebarDiameter);
 
             using (Transaction t1 = new Transaction(doc, "Add rebar in bend"))
             {
