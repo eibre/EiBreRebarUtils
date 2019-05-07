@@ -151,8 +151,6 @@ namespace EiBreRebarUtils
                 spacing = UnitUtils.ConvertToInternalUnits(spacing, displayUnitSpacing);
                 spacingParam.Set(spacing);
             }
-
         }
-
     } // class
 } //namespace
