@@ -26,8 +26,26 @@ namespace EiBreRebarUtils
             UIDocument uidoc = commandData.Application.ActiveUIDocument;
 
             string defaultText = "ø12c200-P UK";
+            ICollection<ElementId> selectedIds = uidoc.Selection.GetElementIds();
+            List<Rebar> selectedRebars = new List<Rebar>();
+            foreach(ElementId id in selectedIds)
+            {
+                Element e = doc.GetElement(id);
+                if (e is Rebar)
+                {
+                    Rebar r = e as Rebar;
+                    selectedRebars.Add(r);
+                }
+                else if (e is IndependentTag)
+                {
+                    IndependentTag tag = e as IndependentTag;
+                    if (tag.GetTaggedLocalElement() is Rebar)
+                    {
+                        selectedRebars.Add(tag.GetTaggedLocalElement() as Rebar);
+                    }
+                }
+            }
 
-            List<Rebar> selectedRebars = uidoc.Selection.GetElementIds().Select(id => doc.GetElement(id)).OfType<Rebar>().ToList();
             if (selectedRebars.Count < 1)
             {
                 selectedRebars.Add(doc.GetElement(uidoc.Selection.PickObject(ObjectType.Element, "pick rebar")) as Rebar);
