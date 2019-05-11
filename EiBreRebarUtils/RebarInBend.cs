@@ -46,8 +46,8 @@ namespace EiBreRebarUtils
             double rebarDiameter = rebar.GetBendData().BarDiameter;
             RebarBarType barType = doc.GetElement(rebar.GetTypeId()) as RebarBarType;
 
-            IList<Curve> transformedCurvesFirst = GetTransformedCenterLineCurvesAtPostition(rebar, 0);
-            IList<Curve> transformedCurvesLast = GetTransformedCenterLineCurvesAtPostition(rebar, rebar.NumberOfBarPositions-1);
+            IList<Curve> transformedCurvesFirst = Utils.GetTransformedCenterLineCurvesAtPostition(rebar, 0);
+            IList<Curve> transformedCurvesLast = Utils.GetTransformedCenterLineCurvesAtPostition(rebar, rebar.NumberOfBarPositions-1);
 
             XYZ direction = transformedCurvesFirst.OfType<Line>().First().Direction;
 
@@ -86,17 +86,5 @@ namespace EiBreRebarUtils
             return rebarInBendPoints;
         }
 
-        private IList<Curve> GetTransformedCenterLineCurvesAtPostition(Rebar rebar, int barPosIndex)
-        {
-            RebarShapeDrivenAccessor sda = rebar.GetShapeDrivenAccessor();
-            Transform transform = sda.GetBarPositionTransform(barPosIndex);
-            IList<Curve> curves = rebar.GetCenterlineCurves(false, false, false, MultiplanarOption.IncludeOnlyPlanarCurves, barPosIndex);
-            IList<Curve> transformedCurves = new List<Curve>();
-            foreach (Curve curve in curves)
-            {
-                transformedCurves.Add(curve.CreateTransformed(transform));
-            }
-            return transformedCurves;
-        }
     } //class
 } //namespace

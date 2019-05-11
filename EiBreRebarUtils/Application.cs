@@ -105,6 +105,24 @@ namespace EiBreRebarUtils
             pullDownButtonSelect.AddPushButton(pushData11);
             pullDownButtonSelect.AddPushButton(pushData12);
 
+            //Pushbutton RebarInBend
+            PushButtonData pushDataRebarInBend = new PushButtonData("cmdRebarInBend", "Rebar in bend", thisAssemblyPath, "EiBreRebarUtils.RebarInBend");
+            pushDataRebarInBend.ToolTip = "Pick a rebar set to add rebars in all bends with same diameter as the bent bar.";
+            PushButton pushButtonRebarInBend = ribbonPanel.AddItem(pushDataRebarInBend) as PushButton;
+            pushButtonRebarInBend.LargeImage = BitmapToImageSource(Properties.Resources.RebarInBend);
+
+            //Pushbutton PickRebarToIsolateAndTag
+            PushButtonData pushDataPickRebarToIsolateAndTag = new PushButtonData("cmdPickRebarToIsolateAndTag", "Pick and tag", thisAssemblyPath, "EiBreRebarUtils.PickRebarToIsolateAndTag");
+            pushDataPickRebarToIsolateAndTag.ToolTip = "Pick a rebar from a rebar set and a dimension line to isolate the rebar, attach it to the dimension line and place a tag";
+            PushButton pushButtonPickRebarToIsolateAndTag = ribbonPanel.AddItem(pushDataPickRebarToIsolateAndTag) as PushButton;
+            pushButtonPickRebarToIsolateAndTag.LargeImage = BitmapToImageSource(Properties.Resources.PickRebarToIsolateAndTag);
+
+            //Pushbutton RebarParameterFromText
+            PushButtonData pushDataRebarParameterFromText = new PushButtonData("cmdRebarParameterFromText", "Parameters\nfrom text", thisAssemblyPath, "EiBreRebarUtils.RebarParameterFromText");
+            pushDataRebarParameterFromText.ToolTip = "Set bar type (diameter), layout rule, spacing, partition and comment from a string. e.g. ø12c200-P UK";
+            PushButton pushButtonRebarParameterFromText = ribbonPanel.AddItem(pushDataRebarParameterFromText) as PushButton;
+            pushButtonRebarParameterFromText.LargeImage = BitmapToImageSource(Properties.Resources.RebarParameterFromText);
+            
             //Pushbutton Schedule Mark Update
             PushButtonData pushDataScheduleMark = new PushButtonData("cmdSceduleMarkUpdate", "Schedule Mark Update", thisAssemblyPath, "EiBreRebarUtils.ScheduleMarkUpdate");
             pushDataScheduleMark.ToolTip = "Combine the value from Partition and Rebar Number to Schedule Mark.";
@@ -124,14 +142,6 @@ namespace EiBreRebarUtils
             PushButtonData pushDataCopyRebarNumberFromScheduleMark = new PushButtonData("cmdCopyRebarNumberFromScheduleMark", "Copy Rebar Number from Shedule Mark", thisAssemblyPath, "EiBreRebarUtils.CopyRebarNumberFromScheduleMark");
             pushDataCopyRebarNumberFromScheduleMark.ToolTip = "This command asks the user to select a partition and tries to change all Rebar Number values to match the last part of Schedue Mark. All schedule marks must begin with the partition name, and there can only be one number extracted from Schedule Mark for each Rebar Number.";
 
-            //Pushbutton RebarInBend
-            PushButtonData pushDataRebarInBend = new PushButtonData("cmdRebarInBend", "Add rebar in bend", thisAssemblyPath, "EiBreRebarUtils.RebarInBend");
-            pushDataRebarInBend.ToolTip = "This command adds a straight rebar (00) in each bend of a bendt bar (including hooks) with the same diameter as the bendt bar.";
-
-            //Pushbutton RebarParameterFromText
-            PushButtonData pushDataRebarParameterFromText = new PushButtonData("cmdRebarParameterFromText", "Set rebar parameters", thisAssemblyPath, "EiBreRebarUtils.RebarParameterFromText");
-            pushDataRebarParameterFromText.ToolTip = "Set bar type (diameter), layout rule, spacing, partition and comment from a string. e.g. ø12c200-P UK";
-
             //PULLDOWN BUTTON OTHER
             PulldownButtonData pullDataOther = new PulldownButtonData("cmdOther", "Other tools");
             PulldownButton pullDownButtonOther = ribbonPanel.AddItem(pullDataOther) as PulldownButton;
@@ -141,8 +151,6 @@ namespace EiBreRebarUtils
             //pullDownButtonOther.AddPushButton(pushDataCopyRebarNumberFromScheduleMark); // Command not finished yet
             pullDownButtonOther.AddPushButton(pushDataSum);
             pullDownButtonOther.AddPushButton(pushDataMoveInternalShared);
-            pullDownButtonOther.AddPushButton(pushDataRebarInBend);
-            pullDownButtonOther.AddPushButton(pushDataRebarParameterFromText);
 
             pullDownButtonOther.LargeImage = BitmapToImageSource(Properties.Resources.other);
 

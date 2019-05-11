@@ -149,6 +149,8 @@
   <ItemGroup>
     <Compile Include="Coordinates.cs" />
     <Compile Include="CopyRebar.cs" />
+    <Compile Include="PickRebarToIsolateAndTag.cs" />
+    <Compile Include="Utils.cs" />
     <Compile Include="UI\FormRenumber.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -184,6 +186,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -221,7 +224,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\RebarInBend.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PickRebarToIsolateAndTag.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RebarParameterFromText.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RebarInBend.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

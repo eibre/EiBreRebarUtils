@@ -48,7 +48,19 @@ namespace EiBreRebarUtils
 
             if (selectedRebars.Count < 1)
             {
-                selectedRebars.Add(doc.GetElement(uidoc.Selection.PickObject(ObjectType.Element, "pick rebar")) as Rebar);
+                Element pickedElement = null;
+                try
+                {
+                    pickedElement = doc.GetElement(uidoc.Selection.PickObject(ObjectType.Element, "pick rebar"));
+                }
+                catch (Autodesk.Revit.Exceptions.OperationCanceledException)
+                {
+                    return Result.Cancelled;
+                }
+                if (pickedElement is Rebar)
+                {
+                    selectedRebars.Add(pickedElement as Rebar);
+                }
             }
             else if(selectedRebars.Count == 1)
             {
@@ -97,7 +109,6 @@ namespace EiBreRebarUtils
                 rebar.get_Parameter(BuiltInParameter.ALL_MODEL_INSTANCE_COMMENTS).Set(comments);
                 t1.Commit();
             }
-
 
             return Result.Succeeded;
         }
