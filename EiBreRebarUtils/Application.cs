@@ -99,11 +99,19 @@ namespace EiBreRebarUtils
             PushButtonData pushData12 = new PushButtonData("cmdSelectCategory", "Select Same Category", thisAssemblyPath, "EiBreRebarUtils.SelectSameCategory");
             pushData12.ToolTip = "When an element is selected, use this command to select all elements of the same Category visible in view.";
 
+            PushButtonData pushSelectTopLayer = new PushButtonData("cmdSelectTopLayer", "Select Top Layer (OK)", thisAssemblyPath, "EiBreRebarUtils.SelectTopLayer");
+            pushSelectTopLayer.ToolTip = "Select rebar that is completely inside the bounding box of the top half of a Rebar Host.";
+
+            PushButtonData pushSelectBottomLayer = new PushButtonData("cmdSelectBottomLayer", "Select Bottom Layer (UK)", thisAssemblyPath, "EiBreRebarUtils.SelectBottomLayer");
+            pushSelectBottomLayer.ToolTip = "Select rebar that is completely inside the bounding box of the bottom half of a Rebar Host.";
+
             pullDownButtonSelect.AddPushButton(pushSelectedTagData);
             pullDownButtonSelect.AddPushButton(pushUnselectedTagData);
             pullDownButtonSelect.AddPushButton(pushData10);
             pullDownButtonSelect.AddPushButton(pushData11);
             pullDownButtonSelect.AddPushButton(pushData12);
+            pullDownButtonSelect.AddPushButton(pushSelectTopLayer);
+            pullDownButtonSelect.AddPushButton(pushSelectBottomLayer);
 
             //Pushbutton RebarInBend
             PushButtonData pushDataRebarInBend = new PushButtonData("cmdRebarInBend", "Rebar in bend", thisAssemblyPath, "EiBreRebarUtils.RebarInBend");

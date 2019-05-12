@@ -19,7 +19,7 @@ namespace EiBreRebarUtils
     {
         public bool AllowElement(Element element)
         {
-            if (element.Category.Name == "Structural Rebar")
+            if (element.Category.Id.IntegerValue == (int) BuiltInCategory.OST_Rebar)
             {
                 return true;
             }
@@ -30,8 +30,43 @@ namespace EiBreRebarUtils
         {
             return false;
         }
-
     }
+
+    public class DimensionSelectFilter : ISelectionFilter
+    {
+        public bool AllowElement(Element element)
+        {
+            if (element.Category.Id.IntegerValue == (int)BuiltInCategory.OST_Dimensions)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool AllowReference(Reference refer, XYZ point)
+        {
+            return false;
+        }
+    }
+
+    public class RebarHostSelectionFilter : ISelectionFilter
+    {
+        public bool AllowElement(Element element)
+        {
+            if (RebarHostData.GetRebarHostData(element) != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool AllowReference(Reference refer, XYZ point)
+        {
+            return false;
+        }
+    } //class
+
+
 
     //Set the attributes
     [TransactionAttribute(TransactionMode.Manual)]
@@ -124,4 +159,141 @@ namespace EiBreRebarUtils
             return Result.Succeeded;
         }
     } //class
-} //namespace
+
+    //Set the attributes
+    [TransactionAttribute(TransactionMode.Manual)]
+    [RegenerationAttribute(RegenerationOption.Manual)]
+
+    public class SelectBottomLayer : IExternalCommand
+    {
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
+        {
+            Application app = commandData.Application.Application;
+            UIDocument uidoc = commandData.Application.ActiveUIDocument;
+            Document doc = uidoc.Document;
+
+            ICollection<ElementId> selectedIds = uidoc.Selection.GetElementIds();
+            List<Element> hostElements = new List<Element>();
+            if (selectedIds.Any())
+            {
+                foreach(ElementId id in selectedIds)
+                {
+                    Element e = doc.GetElement(id);
+                    if (RebarHostData.IsValidHost(e))
+                    {
+                        hostElements.Add(e);
+                    }
+                }
+            }
+            else
+            {
+                try
+                {
+                    Reference pickedRef = uidoc.Selection.PickObject(ObjectType.Element, new RebarHostSelectionFilter(), "Pick a rebar host to selct rebar in bottom, TAB to cycle, ESC to cancel");
+                    if(pickedRef == null)
+                    {
+                        message = "Nothing was selected";
+                        return Result.Failed;
+                    }
+                    else
+                    {
+                        hostElements.Add(doc.GetElement(pickedRef));
+                    }
+                }
+                catch(Autodesk.Revit.Exceptions.OperationCanceledException)
+                {
+                    return Result.Cancelled;
+                }
+            }
+            ICollection<ElementId> idsToSelect = new List<ElementId>();
+            foreach (Element host in hostElements)
+            {
+                ICollection<ElementId> rebarsInBottomLayer = GetElementIdsInLayer(doc, host, true);
+                idsToSelect = idsToSelect.Concat(rebarsInBottomLayer).ToList();
+            }
+            uidoc.Selection.SetElementIds(idsToSelect);
+
+            return Result.Succeeded;
+        }
+
+        internal static ICollection<ElementId> GetElementIdsInLayer(Document doc, Element host, bool bottomLayer)
+        {
+            RebarHostData hostData = RebarHostData.GetRebarHostData(host);
+            ICollection<ElementId> rebarsInHost = hostData.GetRebarsInHost().Select(r => r.Id).ToList();
+            BoundingBoxXYZ box = host.get_BoundingBox(null);
+            double midZ = 0.5 * (box.Max.Z + box.Min.Z);
+            Outline outline;
+            if (bottomLayer)
+            {
+                outline = new Outline(box.Min, new XYZ(box.Max.X, box.Max.Y, midZ));
+            }
+            else
+            {
+                outline = new Outline(new XYZ(box.Min.X, box.Min.Y, midZ), box.Max);
+            }
+
+            BoundingBoxIsInsideFilter filter = new BoundingBoxIsInsideFilter(outline);
+            FilteredElementCollector collector = new FilteredElementCollector(doc, rebarsInHost);
+            return collector.WherePasses(filter).ToElementIds();
+            
+        }
+    } //class
+
+    //Set the attributes
+    [TransactionAttribute(TransactionMode.Manual)]
+    [RegenerationAttribute(RegenerationOption.Manual)]
+
+    public class SelectTopLayer : IExternalCommand
+    {
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
+        {
+            Application app = commandData.Application.Application;
+            UIDocument uidoc = commandData.Application.ActiveUIDocument;
+            Document doc = uidoc.Document;
+
+            ICollection<ElementId> selectedIds = uidoc.Selection.GetElementIds();
+            List<Element> hostElements = new List<Element>();
+            if (selectedIds.Any())
+            {
+                foreach (ElementId id in selectedIds)
+                {
+                    Element e = doc.GetElement(id);
+                    if (RebarHostData.IsValidHost(e))
+                    {
+                        hostElements.Add(e);
+                    }
+                }
+            }
+            else
+            {
+                try
+                {
+                    Reference pickedRef = uidoc.Selection.PickObject(ObjectType.Element, new RebarHostSelectionFilter(), "Pick a rebar host to selct rebar in bottom, TAB to cycle, ESC to cancel");
+                    if (pickedRef == null)
+                    {
+                        message = "Nothing was selected";
+                        return Result.Failed;
+                    }
+                    else
+                    {
+                        hostElements.Add(doc.GetElement(pickedRef));
+                    }
+                }
+                catch (Autodesk.Revit.Exceptions.OperationCanceledException)
+                {
+                    return Result.Cancelled;
+                }
+            }
+            ICollection<ElementId> idsToSelect = new List<ElementId>();
+            foreach (Element host in hostElements)
+            {
+                ICollection<ElementId> rebarsInBottomLayer = SelectBottomLayer.GetElementIdsInLayer(doc, host, false);
+                idsToSelect = idsToSelect.Concat(rebarsInBottomLayer).ToList();
+            }
+            uidoc.Selection.SetElementIds(idsToSelect);
+
+            return Result.Succeeded;
+        }
+    } //class
+
+    } //namespace

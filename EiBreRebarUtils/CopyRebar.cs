@@ -167,20 +167,4 @@ namespace EiBreRebarUtils
             return (int)BuiltInCategory.OST_StructuralColumns == e.Category.Id.IntegerValue && e.Location is LocationPoint;
         }
     } //Class
-    public class RebarHostSelectionFilter : ISelectionFilter
-    {
-        public bool AllowElement(Element element)
-        {
-            if (RebarHostData.GetRebarHostData(element) != null)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public bool AllowReference(Reference refer, XYZ point)
-        {
-            return false;
-        }
-    } //class
 } //namespace

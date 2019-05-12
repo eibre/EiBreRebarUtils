@@ -33,7 +33,7 @@ namespace EiBreRebarUtils
                 try
                 {
                     pickedRebarRef = uidoc.Selection.PickObject(ObjectType.Element, new RebarSelectFilter(), "Pick a Rebar, TAB to cycle, ESC to cancel.");
-                    pickedDimensionRef = uidoc.Selection.PickObject(ObjectType.Element, "Pick a Dimension, TAB to cycle, ESC to cancel.");
+                    pickedDimensionRef = uidoc.Selection.PickObject(ObjectType.Element, new DimensionSelectFilter(), "Pick a Dimension, TAB to cycle, ESC to cancel.");
                 }
                 catch (Autodesk.Revit.Exceptions.OperationCanceledException)
                 {
