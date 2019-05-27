@@ -150,13 +150,17 @@ namespace EiBreRebarUtils
             PushButtonData pushDataCopyRebarNumberFromScheduleMark = new PushButtonData("cmdCopyRebarNumberFromScheduleMark", "Copy Rebar Number from Shedule Mark", thisAssemblyPath, "EiBreRebarUtils.CopyRebarNumberFromScheduleMark");
             pushDataCopyRebarNumberFromScheduleMark.ToolTip = "This command asks the user to select a partition and tries to change all Rebar Number values to match the last part of Schedue Mark. All schedule marks must begin with the partition name, and there can only be one number extracted from Schedule Mark for each Rebar Number.";
 
+            //Pushbutton TagToDim
+            PushButtonData pushDataTagToDim = new PushButtonData("cmdTagToDim", "Connect tag to dimension", thisAssemblyPath, "EiBreRebarUtils.TagToDim");
+            pushDataTagToDim.ToolTip = "Pick a tag and a dimension to attach the tag leader to the nearest endpoint of the dimesion.";
+
             //PULLDOWN BUTTON OTHER
             PulldownButtonData pullDataOther = new PulldownButtonData("cmdOther", "Other tools");
             PulldownButton pullDownButtonOther = ribbonPanel.AddItem(pullDataOther) as PulldownButton;
 
             pullDownButtonOther.AddPushButton(pushDataRemoveDimVal);
             pullDownButtonOther.AddPushButton(pushDataScheduleMark);
-            //pullDownButtonOther.AddPushButton(pushDataCopyRebarNumberFromScheduleMark); // Command not finished yet
+            pullDownButtonOther.AddPushButton(pushDataTagToDim);
             pullDownButtonOther.AddPushButton(pushDataSum);
             pullDownButtonOther.AddPushButton(pushDataMoveInternalShared);
 

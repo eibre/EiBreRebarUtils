@@ -49,6 +49,23 @@ namespace EiBreRebarUtils
         }
     }
 
+    public class TagSelectFilter : ISelectionFilter
+    {
+        public bool AllowElement(Element element)
+        {
+            if (element is IndependentTag)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool AllowReference(Reference refer, XYZ point)
+        {
+            return false;
+        }
+    }
+
     public class RebarHostSelectionFilter : ISelectionFilter
     {
         public bool AllowElement(Element element)

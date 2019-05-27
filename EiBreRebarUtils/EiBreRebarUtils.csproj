@@ -150,6 +150,7 @@
     <Compile Include="Coordinates.cs" />
     <Compile Include="CopyRebar.cs" />
     <Compile Include="PickRebarToIsolateAndTag.cs" />
+    <Compile Include="TagToDim.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="UI\FormRenumber.cs">
       <SubType>Form</SubType>
