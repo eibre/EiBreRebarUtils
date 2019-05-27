@@ -17,9 +17,11 @@ namespace EiBreRebarUtils
         {
             // Registrere event:
             //application.ControlledApplication.FileExporting += new EventHandler<FileExportingEventArgs>(AskForParameterUpdates);
-
+            // Create a custom ribbon tab
+            String tabName = "RebarUtils";
+            application.CreateRibbonTab(tabName);
             // Add a new ribbon panel
-            RibbonPanel ribbonPanel = application.CreateRibbonPanel("EiBre Rebar Utils");
+            RibbonPanel ribbonPanel = application.CreateRibbonPanel(tabName, "EiBre Rebar Utils");
             string thisAssemblyPath = Assembly.GetExecutingAssembly().Location;
             // buttons: Copy Rebar, Renumber Rebar, Tag all, cycle tag,  Visibility, Selection, Other
 
@@ -153,6 +155,10 @@ namespace EiBreRebarUtils
             //Pushbutton TagToDim
             PushButtonData pushDataTagToDim = new PushButtonData("cmdTagToDim", "Connect tag to dimension", thisAssemblyPath, "EiBreRebarUtils.TagToDim");
             pushDataTagToDim.ToolTip = "Pick a tag and a dimension to attach the tag leader to the nearest endpoint of the dimesion.";
+            
+            //Pushbutton About
+            PushButtonData pushDataAbout = new PushButtonData("cmdAbout", "About", thisAssemblyPath, "EiBreRebarUtils.About");
+            pushDataAbout.ToolTip = "About..";
 
             //PULLDOWN BUTTON OTHER
             PulldownButtonData pullDataOther = new PulldownButtonData("cmdOther", "Other tools");
@@ -163,6 +169,7 @@ namespace EiBreRebarUtils
             pullDownButtonOther.AddPushButton(pushDataTagToDim);
             pullDownButtonOther.AddPushButton(pushDataSum);
             pullDownButtonOther.AddPushButton(pushDataMoveInternalShared);
+            pullDownButtonOther.AddPushButton(pushDataAbout);
 
             pullDownButtonOther.LargeImage = BitmapToImageSource(Properties.Resources.other);
 
