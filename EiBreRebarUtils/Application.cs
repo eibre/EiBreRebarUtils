@@ -155,7 +155,11 @@ namespace EiBreRebarUtils
             //Pushbutton TagToDim
             PushButtonData pushDataTagToDim = new PushButtonData("cmdTagToDim", "Connect tag to dimension", thisAssemblyPath, "EiBreRebarUtils.TagToDim");
             pushDataTagToDim.ToolTip = "Pick a tag and a dimension to attach the tag leader to the nearest endpoint of the dimesion.";
-            
+
+            //Pushbutton ActiveViewToOpenSheet
+            PushButtonData pushDataActiveViewToOpenSheet = new PushButtonData("cmdActiveViewToOpenSheet", "Add active view to open sheet", thisAssemblyPath, "EiBreRebarUtils.ActiveViewToOpenSheet");
+            pushDataActiveViewToOpenSheet.ToolTip = "Adds the active view to a open sheet. If more than one sheet is open you are prompted to choose one.";
+
             //Pushbutton About
             PushButtonData pushDataAbout = new PushButtonData("cmdAbout", "About", thisAssemblyPath, "EiBreRebarUtils.About");
             pushDataAbout.ToolTip = "About..";
@@ -169,7 +173,9 @@ namespace EiBreRebarUtils
             pullDownButtonOther.AddPushButton(pushDataTagToDim);
             pullDownButtonOther.AddPushButton(pushDataSum);
             pullDownButtonOther.AddPushButton(pushDataMoveInternalShared);
+            pullDownButtonOther.AddPushButton(pushDataActiveViewToOpenSheet);
             pullDownButtonOther.AddPushButton(pushDataAbout);
+            
 
             pullDownButtonOther.LargeImage = BitmapToImageSource(Properties.Resources.other);
 

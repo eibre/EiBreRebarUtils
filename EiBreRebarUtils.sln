@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29201.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EiBreRebarUtils", "EiBreRebarUtils\EiBreRebarUtils.csproj", "{2C96EDF3-BF7D-47D5-9DF0-DE22D31730A5}"
 EndProject
@@ -13,6 +13,8 @@ Global
 		2018|x64 = 2018|x64
 		2019|Any CPU = 2019|Any CPU
 		2019|x64 = 2019|x64
+		2020|Any CPU = 2020|Any CPU
+		2020|x64 = 2020|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{2C96EDF3-BF7D-47D5-9DF0-DE22D31730A5}.2017|Any CPU.ActiveCfg = Debug 2017|Any CPU
@@ -27,8 +29,15 @@ Global
 		{2C96EDF3-BF7D-47D5-9DF0-DE22D31730A5}.2019|Any CPU.Build.0 = 2019|Any CPU
 		{2C96EDF3-BF7D-47D5-9DF0-DE22D31730A5}.2019|x64.ActiveCfg = 2019|x64
 		{2C96EDF3-BF7D-47D5-9DF0-DE22D31730A5}.2019|x64.Build.0 = 2019|x64
+		{2C96EDF3-BF7D-47D5-9DF0-DE22D31730A5}.2020|Any CPU.ActiveCfg = 2020|x64
+		{2C96EDF3-BF7D-47D5-9DF0-DE22D31730A5}.2020|Any CPU.Build.0 = 2020|x64
+		{2C96EDF3-BF7D-47D5-9DF0-DE22D31730A5}.2020|x64.ActiveCfg = 2020|x64
+		{2C96EDF3-BF7D-47D5-9DF0-DE22D31730A5}.2020|x64.Build.0 = 2020|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {03372CA1-41EB-49BA-A1DF-B39345477723}
 	EndGlobalSection
 EndGlobal
