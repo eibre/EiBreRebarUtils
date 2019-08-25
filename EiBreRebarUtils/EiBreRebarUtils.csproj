@@ -227,9 +227,7 @@
     <EmbeddedResource Include="Resources\TagAllRebarsInHost.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\CycleTagLeader.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CycleTagLeader.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\other.png" />
@@ -244,9 +242,7 @@
     <EmbeddedResource Include="Resources\renumber.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\copyRebar.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\copyRebar.png" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="UI\WindowSelectSheet.xaml">
@@ -263,16 +259,16 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\RebarInBend.bmp" />
+    <EmbeddedResource Include="Resources\RebarInBend.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\PickRebarToIsolateAndTag.png" />
+    <EmbeddedResource Include="Resources\PickRebarToIsolateAndTag.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\RebarParameterFromText.png" />
+    <EmbeddedResource Include="Resources\RebarParameterFromText.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\RebarInBend.png" />
+    <EmbeddedResource Include="Resources\RebarInBend.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
