@@ -160,6 +160,10 @@ namespace EiBreRebarUtils
             PushButtonData pushDataActiveViewToOpenSheet = new PushButtonData("cmdActiveViewToOpenSheet", "Add active view to open sheet", thisAssemblyPath, "EiBreRebarUtils.ActiveViewToOpenSheet");
             pushDataActiveViewToOpenSheet.ToolTip = "Adds the active view to a open sheet. If more than one sheet is open you are prompted to choose one.";
 
+            //Pushbutton DisallowJoin
+            PushButtonData pushDataDisallowJoin = new PushButtonData("cmdDisallowJoin", "Disallow Join", thisAssemblyPath, "EiBreRebarUtils.DisallowJoin");
+            pushDataDisallowJoin.ToolTip = "Pick walls and/or structural framing to disallow join in both ends. End the selection by clicking finish in top left corner.";
+
             //Pushbutton About
             PushButtonData pushDataAbout = new PushButtonData("cmdAbout", "About", thisAssemblyPath, "EiBreRebarUtils.About");
             pushDataAbout.ToolTip = "About..";
@@ -174,6 +178,8 @@ namespace EiBreRebarUtils
             pullDownButtonOther.AddPushButton(pushDataSum);
             pullDownButtonOther.AddPushButton(pushDataMoveInternalShared);
             pullDownButtonOther.AddPushButton(pushDataActiveViewToOpenSheet);
+            pullDownButtonOther.AddPushButton(pushDataDisallowJoin);
+            pullDownButtonOther.AddSeparator();
             pullDownButtonOther.AddPushButton(pushDataAbout);
             
 

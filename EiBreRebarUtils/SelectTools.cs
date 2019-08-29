@@ -83,7 +83,22 @@ namespace EiBreRebarUtils
         }
     } //class
 
+    public class WallOrBeamSelectFilter : ISelectionFilter
+    {
+        public bool AllowElement(Element element)
+        {
+            if (element is Wall || element.Category.Id.IntegerValue == (int) BuiltInCategory.OST_StructuralFraming)
+            {
+                return true;
+            }
+            return false;
+        }
 
+        public bool AllowReference(Reference refer, XYZ point)
+        {
+            return false;
+        }
+    } //class
 
     //Set the attributes
     [TransactionAttribute(TransactionMode.Manual)]

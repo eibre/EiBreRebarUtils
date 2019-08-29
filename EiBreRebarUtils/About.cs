@@ -27,7 +27,8 @@ namespace EiBreRebarUtils
             UIDocument uidoc = commandData.Application.ActiveUIDocument;
             Document doc = uidoc.Document;
             var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-            string mainInstruction = $"Version: {version}\n\nLicence: MIT";
+            string gitHubUrl = @"https://github.com/eibre/EiBreRebarUtils";
+            string mainInstruction = $"Version: {version}\n\nReport bugs and requests at {gitHubUrl}\n\nLicense: MIT";
 
             TaskDialog.Show("About", mainInstruction);
 
