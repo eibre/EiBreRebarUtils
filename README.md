@@ -1,7 +1,7 @@
 # EiBreRebarUtils
 A collection of small tools for faster production in Autodesk Revit.
 
-Supports Revit 2019
+Supports Revit 2019, 2020
 
 ## Usage
 This addin creates a section in the Add-In ribbon:
