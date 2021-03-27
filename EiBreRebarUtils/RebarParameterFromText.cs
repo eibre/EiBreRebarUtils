@@ -39,9 +39,9 @@ namespace EiBreRebarUtils
                 else if (e is IndependentTag)
                 {
                     IndependentTag tag = e as IndependentTag;
-                    if (tag.GetTaggedLocalElement() is Rebar)
+                    if (tag.GetTaggedLocalElements().First() is Rebar)
                     {
-                        selectedRebars.Add(tag.GetTaggedLocalElement() as Rebar);
+                        selectedRebars.AddRange(tag.GetTaggedLocalElements().Cast<Rebar>().ToList());
                     }
                 }
             }
@@ -116,7 +116,7 @@ namespace EiBreRebarUtils
         private static string GetDiameter(Rebar rebar)
         {
             Parameter diameterParam = rebar.get_Parameter(BuiltInParameter.REBAR_BAR_DIAMETER);
-            DisplayUnitType unitType = diameterParam.DisplayUnitType;
+            ForgeTypeId unitType = diameterParam.GetUnitTypeId();
             double diameter = diameterParam.AsDouble();
             diameter = UnitUtils.ConvertFromInternalUnits(diameter, unitType);
             return "ø" + diameter.ToString();
@@ -130,7 +130,7 @@ namespace EiBreRebarUtils
                 return "";
             }
             Parameter spacingParam = rebar.get_Parameter(BuiltInParameter.REBAR_ELEM_BAR_SPACING);
-            DisplayUnitType unitType = spacingParam.DisplayUnitType;
+            ForgeTypeId unitType = spacingParam.GetUnitTypeId();
             double spacing = spacingParam.AsDouble();
              spacing =  UnitUtils.ConvertFromInternalUnits(spacing, unitType);
             return "c" + spacing.ToString("0");
@@ -175,7 +175,7 @@ namespace EiBreRebarUtils
                 rebar.get_Parameter(BuiltInParameter.REBAR_ELEM_LAYOUT_RULE).Set(2);
 
                 Parameter spacingParam = rebar.get_Parameter(BuiltInParameter.REBAR_ELEM_BAR_SPACING);
-                DisplayUnitType displayUnitSpacing = spacingParam.DisplayUnitType;
+                ForgeTypeId displayUnitSpacing = spacingParam.GetUnitTypeId();
                 double spacing = double.Parse(spacingString);
                 spacing = UnitUtils.ConvertToInternalUnits(spacing, displayUnitSpacing);
                 spacingParam.Set(spacing);

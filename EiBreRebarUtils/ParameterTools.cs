@@ -113,17 +113,17 @@ namespace EiBreRebarUtils
 
                 if (length != null)
                 {
-                    sumLength += UnitUtils.ConvertFromInternalUnits(length.AsDouble(), length.DisplayUnitType);
+                    sumLength += UnitUtils.ConvertFromInternalUnits(length.AsDouble(), length.GetUnitTypeId());
                 }
                 else sumLength = 0;
                 if (area != null)
                 {
-                    sumArea += UnitUtils.ConvertFromInternalUnits(area.AsDouble(), area.DisplayUnitType);
+                    sumArea += UnitUtils.ConvertFromInternalUnits(area.AsDouble(), area.GetUnitTypeId());
                 }
                 else sumArea = 0;
                 if (volume != null)
                 {
-                    sumVolume += UnitUtils.ConvertFromInternalUnits(volume.AsDouble(), volume.DisplayUnitType);
+                    sumVolume += UnitUtils.ConvertFromInternalUnits(volume.AsDouble(), volume.GetUnitTypeId());
                 }
                 else sumVolume = 0;
 

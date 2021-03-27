@@ -27,22 +27,23 @@ namespace EiBreRebarUtils
             List<ElementId> taggedRebarIds = new List<ElementId>();
             foreach (IndependentTag tag1 in fec1)
             {
-                Element e = tag1.GetTaggedLocalElement();
-
-                //Multirebar tags are attached to a dimension, and wee need to find what rebar the dimension is referencing.
-                if (e is Dimension)
+                foreach (Element e in tag1.GetTaggedLocalElements())
                 {
-                    Dimension dim1 = (Dimension)e;
-                    ReferenceArray ref1 = dim1.References;
-                    HashSet<ElementId> refIds = new HashSet<ElementId>();
-                    foreach (Reference r in ref1)
+                    //Multirebar tags are attached to a dimension, and wee need to find what rebar the dimension is referencing.
+                    if (e is Dimension)
                     {
-                        refIds.Add(r.ElementId);
+                        Dimension dim1 = (Dimension)e;
+                        ReferenceArray ref1 = dim1.References;
+                        HashSet<ElementId> refIds = new HashSet<ElementId>();
+                        foreach (Reference r in ref1)
+                        {
+                            refIds.Add(r.ElementId);
+                        }
+                        taggedRebarIds.AddRange(refIds.ToList());
                     }
-                    taggedRebarIds.AddRange(refIds.ToList());
+                    //Add the rebars to a list
+                    else { taggedRebarIds.AddRange(tag1.GetTaggedLocalElements().Select(q=>q.Id)); }
                 }
-                //Add the rebars to a list
-                else { taggedRebarIds.Add(tag1.GetTaggedLocalElement().Id); }
             }
             return taggedRebarIds;
         }

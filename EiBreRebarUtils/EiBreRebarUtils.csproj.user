@@ -22,4 +22,14 @@
     <StartArguments>C:\Users\eibre\Documents\Rebar-Debug.rvt</StartArguments>
     <StartAction>Program</StartAction>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2021|x64'">
+    <StartProgram>C:\Program Files\Autodesk\Revit 2019\Revit.exe</StartProgram>
+    <StartArguments>C:\Users\eibre\Documents\Rebar-Debug.rvt</StartArguments>
+    <StartAction>Program</StartAction>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2022|x64'">
+    <StartProgram>C:\Program Files\Autodesk\Revit 2019\Revit.exe</StartProgram>
+    <StartArguments>C:\Users\eibre\Documents\Rebar-Debug.rvt</StartArguments>
+    <StartAction>Program</StartAction>
+  </PropertyGroup>
 </Project>

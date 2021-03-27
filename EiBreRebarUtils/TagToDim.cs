@@ -100,10 +100,11 @@ namespace EiBreRebarUtils
                 t1.Start();
                 tag.HasLeader = true;
                 tag.LeaderEndCondition = LeaderEndCondition.Free;
-                tag.LeaderEnd = leaderEndPt;
+
+                tag.SetLeaderEnd(tag.GetTaggedReferences().First(), leaderEndPt);
                 if (leaderElbowPt != null)
                 {
-                    tag.LeaderElbow = leaderElbowPt;
+                    tag.SetLeaderElbow(tag.GetTaggedReferences().First(), leaderElbowPt);
                 }
                 else if (tagHeadPt != null)
                 {

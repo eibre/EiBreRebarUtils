@@ -43,7 +43,7 @@ namespace EiBreRebarUtils
                 message = "Singe rebar and non-shape driven rebars are not supported.";
                 return Result.Failed;
             }
-            double rebarDiameter = rebar.GetBendData().BarDiameter;
+            double rebarDiameter = rebar.GetBendData().BarNominalDiameter;
             RebarBarType barType = doc.GetElement(rebar.GetTypeId()) as RebarBarType;
 
             IList<Curve> transformedCurvesFirst = Utils.GetTransformedCenterLineCurvesAtPostition(rebar, 0);
