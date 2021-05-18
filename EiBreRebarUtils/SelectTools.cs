@@ -99,6 +99,22 @@ namespace EiBreRebarUtils
             return false;
         }
     } //class
+    public class FloorSelectFilter : ISelectionFilter
+    {
+        public bool AllowElement(Element element)
+        {
+            if (element is Floor)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool AllowReference(Reference refer, XYZ point)
+        {
+            return false;
+        }
+    } //class
 
     //Set the attributes
     [TransactionAttribute(TransactionMode.Manual)]

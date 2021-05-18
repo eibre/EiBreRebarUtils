@@ -163,7 +163,9 @@ namespace EiBreRebarUtils
             //Pushbutton DisallowJoin
             PushButtonData pushDataDisallowJoin = new PushButtonData("cmdDisallowJoin", "Disallow Join", thisAssemblyPath, "EiBreRebarUtils.DisallowJoin");
             pushDataDisallowJoin.ToolTip = "Pick walls and/or structural framing to disallow join in both ends. End the selection by clicking finish in top left corner.";
-
+            //Pushbutton ColumnsCutFloors
+            PushButtonData pushDataColumnsCutFloor = new PushButtonData("cmdColumnsCutFloor", "Columns Cut Floor", thisAssemblyPath, "EiBreRebarUtils.SwitchJoinOrder");
+            pushDataColumnsCutFloor.ToolTip = "Pick floors to switch join order such that floors are cut by columns. End the selection by clicking finish in top left corner.";
             //Pushbutton About
             PushButtonData pushDataAbout = new PushButtonData("cmdAbout", "About", thisAssemblyPath, "EiBreRebarUtils.About");
             pushDataAbout.ToolTip = "About..";
@@ -179,6 +181,7 @@ namespace EiBreRebarUtils
             pullDownButtonOther.AddPushButton(pushDataMoveInternalShared);
             pullDownButtonOther.AddPushButton(pushDataActiveViewToOpenSheet);
             pullDownButtonOther.AddPushButton(pushDataDisallowJoin);
+            pullDownButtonOther.AddPushButton(pushDataColumnsCutFloor);
             pullDownButtonOther.AddSeparator();
             pullDownButtonOther.AddPushButton(pushDataAbout);
             

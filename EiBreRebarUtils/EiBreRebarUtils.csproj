@@ -138,7 +138,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2022|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2022|x64'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x64\2022\</OutputPath>
     <DefineConstants>TRACE;DEBUG;RVT2021</DefineConstants>
@@ -198,7 +198,7 @@
       <HintPath>..\..\..\..\..\..\..\..\Program Files\Autodesk\Revit 2021\RevitAPIUI.dll</HintPath>
       <Private>False</Private>
     </Reference>
-        <Reference Include="RevitAPI" Condition="'$(Configuration)' == '2022'">
+    <Reference Include="RevitAPI" Condition="'$(Configuration)' == '2022'">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Users\eibre\Source\Repos\eibre\EiBreRebarUtils\packages\Autodesk.Revit.SDK.2022.0.0.2001\ref\net48\RevitAPI.dll</HintPath>
       <Private>False</Private>
@@ -223,6 +223,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Coordinates.cs" />
+    <Compile Include="SwitchJoinOrder.cs" />
     <Compile Include="DisallowJoin.cs" />
     <Compile Include="CopyRebar.cs" />
     <Compile Include="PickRebarToIsolateAndTag.cs" />
