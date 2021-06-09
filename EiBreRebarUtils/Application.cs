@@ -166,6 +166,9 @@ namespace EiBreRebarUtils
             //Pushbutton ColumnsCutFloors
             PushButtonData pushDataColumnsCutFloor = new PushButtonData("cmdColumnsCutFloor", "Columns Cut Floor", thisAssemblyPath, "EiBreRebarUtils.SwitchJoinOrder");
             pushDataColumnsCutFloor.ToolTip = "Pick floors to switch join order such that floors are cut by columns. End the selection by clicking finish in top left corner.";
+            //Pushbutton PasteImageFromClipboard
+            PushButtonData pushDataPasteImage = new PushButtonData("cmdPasteImageFromClipboard", "Paste Image From Clipboard", thisAssemblyPath, "EiBreRebarUtils.PasteImageFromClipboard");
+            pushDataPasteImage.ToolTip = "Copy a image to clipboard and paste it. The image will be saved in a new folder in the same location as your central file. You will be prompted to pick a point which is the center poit of the image";
             //Pushbutton About
             PushButtonData pushDataAbout = new PushButtonData("cmdAbout", "About", thisAssemblyPath, "EiBreRebarUtils.About");
             pushDataAbout.ToolTip = "About..";
@@ -182,6 +185,7 @@ namespace EiBreRebarUtils
             pullDownButtonOther.AddPushButton(pushDataActiveViewToOpenSheet);
             pullDownButtonOther.AddPushButton(pushDataDisallowJoin);
             pullDownButtonOther.AddPushButton(pushDataColumnsCutFloor);
+            pullDownButtonOther.AddPushButton(pushDataPasteImage);
             pullDownButtonOther.AddSeparator();
             pullDownButtonOther.AddPushButton(pushDataAbout);
             

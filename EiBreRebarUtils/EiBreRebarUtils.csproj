@@ -223,6 +223,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Coordinates.cs" />
+    <Compile Include="PasteImageFromClipboard.cs" />
     <Compile Include="SwitchJoinOrder.cs" />
     <Compile Include="DisallowJoin.cs" />
     <Compile Include="CopyRebar.cs" />
