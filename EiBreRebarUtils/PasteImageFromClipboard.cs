@@ -29,7 +29,7 @@ namespace EiBreRebarUtils
             Application app = commandData.Application.Application;
             UIDocument uidoc = commandData.Application.ActiveUIDocument;
             Document doc = uidoc.Document;
-            string filename = "pastedImage" + "_" + DateTime.Now.ToString("yyyy-mm-dd HH.mm") + ".jpeg";
+            string filename = "pastedImage" + "_" + DateTime.Now.ToString("yyyy-MM-dd HH.mm") + ".jpeg";
             string path = "";
             if (doc.IsModelInCloud || doc.IsDetached || doc.PathName == null)
             {
@@ -68,7 +68,6 @@ namespace EiBreRebarUtils
                 message = "Command cancelled";
                 return Result.Cancelled;
             }
-
 
 
             using (Transaction t1 = new Transaction(doc, "paste image"))
