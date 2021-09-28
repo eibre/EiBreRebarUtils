@@ -11,7 +11,7 @@ using Autodesk.Revit.UI.Selection;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
 
-namespace EiBreRebarUtils
+namespace NO.RebarUtils
 {
 
     //Set the attributes

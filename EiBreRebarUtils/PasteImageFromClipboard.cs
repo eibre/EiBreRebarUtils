@@ -16,7 +16,7 @@ using Application = Autodesk.Revit.ApplicationServices.Application;
 using System.IO;
 using System.Diagnostics;
 
-namespace EiBreRebarUtils
+namespace NO.RebarUtils
 {
     //Set the attributes
     [TransactionAttribute(TransactionMode.Manual)]

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Structure;
 using Autodesk.Revit.UI;
@@ -12,7 +11,7 @@ using Autodesk.Revit.UI.Selection;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
 
-namespace EiBreRebarUtils
+namespace NO.RebarUtils
 {
   
     //Helper class
@@ -189,18 +188,11 @@ namespace EiBreRebarUtils
             using (Transaction t2 = new Transaction(doc, "Create tag"))
             {
                 t2.Start();
-#if RVT2017
-                doc.Create.NewTag(view1, host1, false, TagMode.TM_ADDBY_CATEGORY, TagOrientation.Horizontal, topPt1);
-#else
+
                 IndependentTag.Create(doc, view1.Id, new Reference(host1), false, TagMode.TM_ADDBY_CATEGORY, TagOrientation.Horizontal, topPt1);
-#endif
                 for (int i = 0; i < numberOfTags; i++)
                 {
-#if RVT2017 
-                    doc.Create.NewTag(view1, rebarList[i], false, TagMode.TM_ADDBY_CATEGORY, TagOrientation.Horizontal, ptList[i]);
-#else
                     IndependentTag.Create(doc, view1.Id, new Reference(rebarList[i]), false, TagMode.TM_ADDBY_CATEGORY, TagOrientation.Horizontal, ptList[i]);
-#endif
                 }
 
                 t2.Commit();

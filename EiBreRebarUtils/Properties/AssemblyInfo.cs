@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("EiBreRebarUtils")]
+[assembly: AssemblyTitle("NO.RebarUtils")]
 [assembly: AssemblyDescription("External application (addin) for Autodesk Revit Software")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Norconsult AS")]
-[assembly: AssemblyProduct("EiBreRebarUtils")]
-[assembly: AssemblyCopyright("Copyright ©  2019")]
+[assembly: AssemblyProduct("NO.RebarUtils")]
+[assembly: AssemblyCopyright("Copyright ©  2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

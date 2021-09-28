@@ -11,7 +11,7 @@ using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB.Structure;
 
-namespace EiBreRebarUtils
+namespace NO.RebarUtils
 {
     public class RebarSelectHelper
     {

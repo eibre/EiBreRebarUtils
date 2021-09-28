@@ -12,7 +12,7 @@ using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
 
 
-namespace EiBreRebarUtils
+namespace NO.RebarUtils
 {
 
     public class RebarSelectFilter : ISelectionFilter

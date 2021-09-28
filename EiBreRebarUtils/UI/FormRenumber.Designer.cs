@@ -1,4 +1,4 @@
-﻿namespace EiBreRebarUtils
+﻿namespace NO.RebarUtils
 {
     partial class FormRenumber
     {
