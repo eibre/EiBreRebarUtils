@@ -4,7 +4,7 @@
     <Name>EiBre Rebar utils</Name>
     <Assembly>"EiBreRebarUtils.dll"</Assembly>
     <AddInId>aca045dd-8cac-4852-bc35-d6ea8cab6e85</AddInId>
-    <FullClassName>NO.RebarUtil.CsAddPanel</FullClassName>
+    <FullClassName>NO.RebarUtils.CsAddPanel</FullClassName>
     <VendorId>Einar Raknes</VendorId>
     <VendorDescription>8747 Bygg Norconsult Trondheim</VendorDescription>
   </AddIn>
